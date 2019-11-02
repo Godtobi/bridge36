@@ -53,7 +53,7 @@
                           <div class="panel-heading">
                               <div class="media media-clearfix-xs-min v-middle">
                                   <div class="media-body text-caption text-light">
-                                      Lessons 4 of 12
+                                      <!-- Lessons 4 of 12 -->
                                   </div>
                                   <div class="media-right">
                                      ${{$course->price}}

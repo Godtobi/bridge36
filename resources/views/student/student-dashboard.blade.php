@@ -119,7 +119,8 @@
                   <a class="btn btn-default text-grey-400 btn-lg btn-circle paper-shadow relative" title="Introduction to Business" data-hover-z="0.5" data-animated data-toggle="tooltip" data-title="Name of Certificate">
                     <i class="fa fa-file-text"></i>
                   </a>
-                  <a class="btn btn-default text-grey-400 btn-lg btn-circle paper-shadow relative" title="Introduction to Business Knowledge" data-hover-z="0.5" data-animated data-toggle="tooltip" data-title="Name of Certificate">
+                  <a class="btn btn-default text-grey-400 btn-lg btn-circle paper-shadow relative" title="Introduction to Business Knowledge
+                  " data-hover-z="0.5" data-animated data-toggle="tooltip" data-title="Name of Certificate">
                     <i class="fa fa-file-text"></i>
                   </a>
                 </div>

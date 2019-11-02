@@ -54,7 +54,6 @@
                               <div class="panel-heading">
                                   <div class="media media-clearfix-xs-min v-middle">
                                       <div class="media-body text-caption text-light">
-                                          Lessons 4 of 12
                                       </div>
                                       <div class="media-right">
                                           <div class="progress progress-mini width-100 margin-none">
