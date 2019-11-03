@@ -24,7 +24,7 @@
                     <a href="{{route('courses')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-mortar-board"></i> Courses </a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('mycourses')}}">My Courses</a></li>
-                        <li><a href="{{route('courses')}}">Take Course</a></li>
+                        <li><a href="{{route('courses')}}">All Course</a></li>
                         <li><a href="{{route('courses')}}">Exams</a></li>
                     </ul>
                 </li>
@@ -32,8 +32,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-inbox"></i> Messaging <span class="caret"></span></a>
                     <ul class="dropdown-menu">
 
-                        <li><a href="{{route('messages')}}">Inbox (1)</a></li>
-                        <!-- <li><a href="{{route('messages')}}">Course Forums</a></li> -->
+                        <li><a href="{{route('messages')}}">Inbox (0)</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

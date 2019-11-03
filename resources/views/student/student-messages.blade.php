@@ -128,9 +128,9 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
               <div class="form-group">
                 <div class="input-group">
                   <div class="input-group-btn">
-                    <a class="btn btn-primary" href="#">
+                    <button class="btn btn-primary" type="submit" href="#">
                       <i class="fa fa-envelope"></i> Send
-                    </a>
+                    </button>
                   </div>
                   <!-- /btn-group -->
                   <input type="text" class="input-text form-control share-text" placeholder="Write message..." />
@@ -161,7 +161,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
   <!-- Footer -->
   <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    <strong>56BRIDGE</strong> v1.1.0 &copy; Copyright 2019
   </footer>
   <!-- // Footer -->
 
@@ -270,10 +270,10 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
             },
             error:function(){
-              
+
             },
             complete:function () {
-              
+
             }
           });
         }

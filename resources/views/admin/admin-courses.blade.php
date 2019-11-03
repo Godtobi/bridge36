@@ -101,21 +101,7 @@
                         <div class="item col-xs-12 col-sm-6 col-lg-4">
                             <div class="panel panel-default paper-shadow" data-z="0.5">
 
-                                <div class="cover overlay cover-image-full hover">
-                                    <span class="img icon-block height-150 bg-primary"></span>
-                                    <a href="" class="padding-none overlay overlay-full icon-block bg-default">
-                                    <span class="v-center">
 
-                                        <img src="{{asset('/storage'.$course->image)}}">
-                                    </span>
-                                    </a>
-                                    <a href="{{route('update.course',$course->id)}}" class="overlay overlay-full overlay-hover overlay-bg-white">
-                                <span class="v-center">
-                                    <span class="btn btn-circle btn-white btn-lg"><i class="fa fa-graduation-cap"></i></span>
-                                </span>
-                                    </a>
-
-                                </div>
 
                                 <div class="panel-body">
                                     <h4 class="text-headline margin-v-0-10"><a href="{{route('update.course',$course->id)}}">{{$course->name}}</a></h4>
@@ -171,7 +157,7 @@
 
 <!-- Footer -->
 <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+  <strong>56BRIDGE</strong> v1.1.0 &copy; Copyright 2019
 </footer>
 <!-- // Footer -->
 

@@ -26,7 +26,7 @@
                         <li><a href="{{route('admin.course.edit')}}">Create Course</a></li>
                         <li><a href="{{route('admin.courses')}}">All Courses</a></li>
                         <li><a href="{{route('admin.courses')}}">Exams and results</a></li>
-                        <li><a href="{{route('admin.courses')}}">Course subscription reports</a></li>
+                        <!-- <li><a href="{{route('admin.courses')}}">Course subscription reports</a></li> -->
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -71,7 +71,7 @@
             </div>
             <div class="media-body">
                 <h1 class="text-white text-display-1 margin-v-0">{{\Illuminate\Support\Facades\Auth::user()->lastname}}</h1>
-                <p class="text-subhead"><a class="link-white text-underline" href="">View my History</a></p>
+                <!-- <p class="text-subhead"><a class="link-white text-underline" href="">View my History</a></p> -->
             </div>
             <div class="media-right">
                 <span class="label bg-blue-500">Admin</span>

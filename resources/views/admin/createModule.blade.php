@@ -157,7 +157,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
   <!-- Footer -->
   <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    <strong>56BRIDGE</strong> v1.1.0 &copy; Copyright 2019
   </footer>
   <!-- // Footer -->
 

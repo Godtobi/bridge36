@@ -84,9 +84,9 @@
                           <hr class="margin-none" />
                           <div class="panel-body">
                                 @if(!in_array($course->id, $bucket))
-                                  <a  class="btn btn-white btn-flat paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="{{'/course/'.$course->id.'/price/24'}}">Subscribe </a>
+                                  <a  class="btn btn-primary btn-flat paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="{{'/course/'.$course->id.'/price/24'}}">Subscribe </a>
                               @endif
-                              <a  class="btn btn-white btn-flat paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="{{route('curriculum',$course->id)}}"> Curriculum </a>
+                              <a  class="btn btn-white btn-flat paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="{{route('curriculum',$course->id)}}">View Course </a>
 
 
                           </div>
@@ -120,7 +120,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    <strong>56BRIDGE</strong> v1.1.0 &copy; Copyright 2019
   </footer>
   <!-- // Footer -->
 

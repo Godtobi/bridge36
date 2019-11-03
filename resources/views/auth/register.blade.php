@@ -187,7 +187,7 @@
 
 <!-- Footer -->
 <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    <strong>56BRIDGE</strong> v1.1.0 &copy; Copyright 2019
 </footer>
 <!-- // Footer -->
 <!-- Inline Script for colors and config objects; used by various external scripts; -->
