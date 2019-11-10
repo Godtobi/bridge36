@@ -10,6 +10,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 use App\Tutors;
+use Gufy\PdfToHtml\Pdf;
 
 
 class CourseController extends Controller
@@ -108,7 +109,7 @@ class CourseController extends Controller
         $querry = DB::table('lessons')
             ->join('modules', 'modules.id', '=', 'lessons.module_id')
             ->where(['modules.course_id' => $id])
-            ->select('modules.name as module_name', 'lessons.name as lesson_name', 'modules.description as mod_d')
+            ->select('modules.name as module_name', 'lessons.name as lesson_name', 'modules.description as mod_d','lessons.id as id')
             ->get();
 
 
@@ -142,6 +143,12 @@ class CourseController extends Controller
 
 
         return view('student.take-course', compact('course', 'container','tutor'));
+        }
+
+        public function show_lesson($id){
+            $content=DB::table('lessons')->where('id',$id)->get()[0];
+
+            return view('student.lesson-content',compact('content'));
         }
 
 

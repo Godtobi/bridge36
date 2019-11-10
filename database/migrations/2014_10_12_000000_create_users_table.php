@@ -25,6 +25,8 @@ class CreateUsersTable extends Migration
             $table->string('image')->default('/uploads/default007.jpg');
             $table->boolean('role')->default(0);
             $table->boolean('active')->default(1);
+            $table->text('courses')->nullable();
+            $table->string('country');
             $table->rememberToken();
             $table->timestamps();
         });

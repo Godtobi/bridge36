@@ -76,7 +76,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
             <!-- Tabs -->
             <ul class="nav nav-tabs">
-              <li class="active"><a href="{{route('student.profile',$id)}} "><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
+              <li class="active"><a href="{{route('facilitator.profile',$id)}} "><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
               <li><a href="{{route('student.allCourse',$id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Course History</span></a></li>
 
             </ul>

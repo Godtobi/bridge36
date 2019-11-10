@@ -86,6 +86,18 @@
             @enderror
             <input name="email" type="email" />
         </label>
+        <label>
+            <span>Country</span>
+            @error('country')
+            <span class="alert text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+            @enderror
+            <select name="country" class="form-control">
+                <option value="Canada">Canada</option>
+                <option value="Nigeria">Nigeria</option>
+            </select>
+        </label>
 
         <label>
             <span>Password</span>
@@ -96,6 +108,7 @@
             @enderror
             <input name="password" type="password" />
         </label>
+
         <label>
             <span>Confirm Password</span>
             <input name="password_confirmation" type="password" />

@@ -2,7 +2,7 @@
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-take-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:12 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
@@ -11,78 +11,45 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>56BRIDGE</title>
+<style>
+  @media print{
+    body {display:none;}
+  }
+</style>
 
   <!-- Vendor CSS BUNDLE
     Includes styling for all of the 3rd party libraries used with this module, such as Bootstrap, Font Awesome and others.
     TIP: Using bundles will improve performance by reducing the number of network requests the client needs to make when loading the page. -->
   <link href="{{asset('css/vendor/all.css')}}" rel="stylesheet">
-
-  <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
-
+    <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
 </head>
 
 <body>
 
   <!-- Fixed navbar -->
-@include('admin.nav')
+@include('student.nav')
 
   <div class="container">
 
     <div class="page-section">
-      <h4 class="page-section-heading">View Students</h4>
-      <div class="panel panel-default">
-        <!-- Data table -->
-        <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Country</th>
-              <th>Start date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tfoot>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Country</th>
-              <th>Start date</th>
-              <th>Actions</th>
-            </tr>
-          </tfoot>
-          <tbody>
-          @foreach($students as $student)
-            <tr>
-              <td>{{$student->firstname}}</td>
-              <td>{{$student->lastname}}</td>
-              <td>{{$student->email}}</td>
-              <td>{{$student->phone}}</td>
-              <td>{{$student->country}}</td>
-              <td>{{$student->created_at}}</td>
+      <div class="row">
 
-              <td>  <a title="View" style="color:#001a57;" href="{{route('student.profile',$student->id)}}" ><i class="fa fa-eye"></i></a>
-                &nbsp
-                &nbsp
-                @if(!$student->active)
+        <div class="col-md-9">
 
-                    <a title="Enable" href="{{route('student.disable',$student->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
-                @endif
-                @if($student->active)
-                    <a title="Disable" href="{{route('student.disable',$student->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
-                @endif
-               </td>
 
-            </tr>
-          @endforeach
+          <iframe src="{{asset('uploads/'.$content->image.'#toolbar=0')}}" style="width:718px; height:700px;" frameborder="0"></iframe>
 
-          </tbody>
-        </table>
-        <!-- // Data table -->
+
+
+          <br/>
+          <br/>
+
+        </div>
+@include('student.right-pane')
+
+
+
+
       </div>
     </div>
 
@@ -126,7 +93,31 @@
     Do not use it simultaneously with the separate bundles above. -->
   <script src="{{asset('js/vendor/all.js')}}"></script>
 
-
+  <!-- Vendor Scripts Standalone Libraries -->
+  <!-- <script src="js/vendor/core/all.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.js"></script> -->
+  <!-- <script src="js/vendor/core/bootstrap.js"></script> -->
+  <!-- <script src="js/vendor/core/breakpoints.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
+  <!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
+  <!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+  <!-- <script src="js/vendor/core/handlebars.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+  <!-- <script src="js/vendor/core/load_image.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
+  <!-- <script src="js/vendor/core/modernizr.js"></script> -->
+  <!-- <script src="js/vendor/core/velocity.js"></script> -->
+  <!-- <script src="js/vendor/tables/all.js"></script> -->
+  <!-- <script src="js/vendor/forms/all.js"></script> -->
+  <!-- <script src="js/vendor/media/slick.js"></script> -->
+  <!-- <script src="js/vendor/charts/flot/all.js"></script> -->
+  <!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
+  <!-- <script src="js/vendor/countdown/all.js"></script> -->
+  <!-- <script src="js/vendor/angular/all.js"></script> -->
 
   <!-- App Scripts Bundle
     Includes Custom Application JavaScript used for the current theme/module;
@@ -157,5 +148,5 @@
 </body>
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-take-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:14 GMT -->
 </html>

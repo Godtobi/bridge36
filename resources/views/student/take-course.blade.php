@@ -67,31 +67,23 @@
               </div>
               <div class="list-group collapse" id="curriculum-2">
               @foreach($value as $item)
+                  <a href="{{route('pdf.html',$item->id)}}">
                   <div class="list-group-item media" data-target="website-take-course.html">
                     <div class="media-left">
                       <div class="text-crt">1.</div>
                     </div>
                     <div class="media-body">
-                      <i class="fa fa-fw fa-circle text-grey-200"></i>{{$item->lesson_name}}
+                      <i  class="fa fa-fw fa-circle text-grey-200"> {{$item->lesson_name}} </i>
                     </div>
                     <div class="media-right">
                       <div class="width-100 text-right text-caption"></div>
                     </div>
                   </div>
+                  </a>
                 @endforeach
               </div>
             </div>
           @endforeach
-
-
-
-
-
-
-
-
-
-
 
 
 

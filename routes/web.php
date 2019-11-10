@@ -38,6 +38,8 @@ Route::post('messagesent', 'MessageController@storeMessage')->name('message.stor
 Route::get('/mycourses','StudentController@mycourses')->name('mycourses');
 Route::get('/course/{course}/price/{price}','StudentController@subscribe')->name('sub');
 Route::post('/pay','StudentController@pay')->name('pay');
+Route::get('/lesson/material/{id}','CourseController@show_lesson')->name('pdf.html');
+
 /**
  *
  * Admin
@@ -45,10 +47,15 @@ Route::post('/pay','StudentController@pay')->name('pay');
 
 Route::get('/all','AdminController@getIndex');
 Route::get('/all','AdminController@getIndex')->name('datatables.data');
+
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
-
+    Route::post('/admin/assign-role/', 'AdminController@saveTutor')->name('store.tutor');
+    Route::get('/admin/assign-role/{id}', 'AdminController@assignTutor')->name('assign.tutor');
+    Route::get('/facilitator/profile/{id}', 'AdminController@facilitator_profile')->name('facilitator.profile');
+    Route::get('/admin/facilitators', 'AdminController@facilitators')->name('facilitators');
     Route::get('/student/profile/{id}', 'AdminController@profile')->name('student.profile');
+    Route::get('/student/course/{id}', 'AdminController@studentCourse')->name('student.allCourse');
     Route::get('/admin/dashboard', 'AdminController@index')->name('admin.dashboard');
     Route::get('/admin/course/edit', 'AdminController@createCourse')->name('admin.course.edit');
     Route::get('/admin/course/lesson/{id}', 'AdminController@lessons')->name('admin.course.lessons');
@@ -95,3 +102,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/course/{course}/lesson/{lesson}/create', 'LessonController@createVideo')->name('create.videos');
     Route::post('/admin/add-video', 'LessonController@storeVideo')->name('video.store');
 });
+
+Route::get('admin/create/user', 'SuperAdminController@create')->name('user.create');
+Route::post('/admin/create', 'SuperAdminController@store')->name('admin_create.store');

@@ -21,6 +21,9 @@ class CreateCoursesTable extends Migration
            $table->integer('duration');
             $table->float('price')->nullable();
             $table->text('description');
+            $table->integer('tutor_id')->nullable();
+            $table->string('country')->nullable();
+            $table->string('facilitator')->nullable();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

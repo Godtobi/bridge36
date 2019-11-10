@@ -76,8 +76,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
             <!-- Tabs -->
             <ul class="nav nav-tabs">
-              <li class="active"><a href="{{route('student.profile',$id)}} "><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
-              <li><a href="{{route('student.allCourse',$id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Course History</span></a></li>
+              <li class="active"><a href="{{route('profile')}} "><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Create User</span></a></li>
 
             </ul>
             <!-- // END Tabs -->
@@ -96,28 +95,16 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     {{ session('error') }}
                   </div>
                 @endif
-                <form method="post" action="{{route('profile.update')}}" enctype="multipart/form-data"  class="form-horizontal">
+                <form method="post" action="{{route('admin_create.store')}}" enctype="multipart/form-data"  class="form-horizontal">
                   @csrf
-                  <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
-                    <div class="col-md-6">
-                      <div class="media v-middle">
-                        <div class="media-left">
-                          <div class="icon-block width-100 bg-grey-100">
-                            <img src="{{asset('/storage'.$user->image)}}">
 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div class="form-group">
                     <label for="inputEmail3" class="col-md-2 control-label">Full Name</label>
                     <div class="col-md-8">
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-control-material">
-                            <input type="text" value="{{$user->firstname}}"  readonly="readonly" name="firstname" class="form-control" id="exampleInputFirstName" placeholder="Your first name">
+                            <input type="text" value=""  name="firstname" class="form-control" id="exampleInputFirstName" placeholder="Your first name">
 
                       <div>
                         @error('firstname')
@@ -131,7 +118,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                         </div>
                         <div class="col-md-6">
                           <div class="form-control-material">
-                            <input type="text" value="{{$user->lastname}}"  readonly="readonly" name="lastname" class="form-control" id="exampleInputLastName" placeholder="Your last name">
+                            <input type="text" value=""   name="lastname" class="form-control" id="exampleInputLastName" placeholder="Your last name">
                         <div>
                           @error('lastname')
                           <span class="alert text-danger">
@@ -151,7 +138,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       <div class="form-control-material">
                         <div class="input-group">
                           <!-- <span class="input-group-addon"><i class="fa fa-envelope"></i></span> -->
-                          <input type="email" value="{{$user->email}}" readonly="readonly" class="form-control" id="inputEmail3" placeholder="Email address">
+                          <input type="email" name="email" value=""  class="form-control" id="inputEmail3" placeholder="Email address">
                      <div>
                        @error('email')
                        <span class="alert text-danger">
@@ -165,37 +152,107 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     </div>
                   </div>
                   <div class="form-group">
+                    <label for="inputPassword3" class="col-md-2 control-label">Password</label>
+                    @error('password')
+                    <span class="alert text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    <div class="col-md-6">
+                      <div class="form-control-material">
+                        <input type="password" name="password" class="form-control" id="inputPassword3" placeholder="New Password">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-md-2 control-label">Confirm Password</label>
+                    @error('password_confirm')
+                    <span class="alert text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    <div class="col-md-6">
+                      <div class="form-control-material">
+                        <input type="password" name="password_confirmation" class="form-control" id="inputPassword3" placeholder="Confirm Password">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-md-2 control-label">Country</label>
+                    @error('country')
+                    <span class="alert text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    <div class="col-md-6">
+                      <div class="form-control-material">
+                       <select name="country" class="form-control" >
+                         <option selected>Choose country</option>
+                         <option value="canada" >Canada</option>
+                         <option value="nigeria" >Nigeria</option>
+                       </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="inputPassword3" class="col-md-2 control-label">Role</label>
+                    @error('role')
+                    <span class="alert text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    <div class="col-md-6">
+                      <div class="form-control-material">
+                        <select name="role"  class="form-control" >
+                          <option selected>Choose Role</option>
+                          <?php if (auth()->user()->hasAnyRole(['admin'])): ?>
+                          <option value="1" >Super Admin</option>
+                          <option value="4" >Canadian Admin</option>
+                          <option value="5" >Nigerian Admin</option>
+                          <option value="2" >Facilitator</option>
+                          <option value="3" >Student</option>
+                          <?php endif; ?>
+
+                          <?php if (auth()->user()->hasAnyRole(['nigeria_admin','canada_admin'])): ?>
+                          <option value="2" >Facilitator</option>
+                          <?php endif; ?>
+
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
                     <label for="inputEmail3" class="col-md-2 control-label">Phone Number</label>
                     <div class="col-md-6">
                       <div class="form-control-material">
                         <div class="input-group">
                           <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
-                          <input type="number" value="{{$user->phone}}" readonly="readonly" name="phone" class="form-control used" id="phone">
-                          <div>
-                            @error('phone')
-                            <span class="alert text-danger">
+                          <input type="number" name="phone" class="form-control used" id="phone">
+                        <div>
+                          @error('phone')
+                          <span class="alert text-danger">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                            @enderror
-                          </div>
+                          @enderror
+                        </div>
                         </div>
                       </div>
                     </div>
                   </div>
+
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Country</label>
+                    <label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
                     <div class="col-md-6">
-                      <div class="form-control-material">
-                        <div class="input-group">
-                          <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
-                          <input type="number" value="{{$user->country}}" readonly="readonly" name="phone" class="form-control used" id="phone">
-                          <div>
-                            @error('phone')
-                            <span class="alert text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                            @enderror
+                      <div class="media v-middle">
+                        <div class="media-left">
+                          <div class="icon-block width-100 bg-grey-100">
+                            <img src="">
+
                           </div>
+                        </div>
+                        <div class="media-body">
+                          <input name="image" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
                         </div>
                       </div>
                     </div>
@@ -216,9 +273,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       </div>
                     </div>
                   </div>
-
+                  <div class="form-group margin-none">
+                    <div class="col-md-offset-2 col-md-10">
+                      <button type="submit" class="btn btn-primary paper-shadow relative" data-z="0.5" data-hover-z="1" data-animated>Save</button>
+                      <button type="button" class="btn btn-danger paper-shadow relative" data-z="0.5" data-hover-z="1" data-animated>Cancel</button>
+                    </div>
+                  </div>
                 </form>
-
+              </div>
 
             </div>
             <!-- // END Panes -->
@@ -228,15 +290,14 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
           <br/>
 
         </div>
-
+       @include('student.right-pane')
 
         </div>
-        @include('admin.upper-right')
+
       </div>
     </div>
 
   </div>
-
 
   <!-- Footer -->
   <footer class="footer">
@@ -273,10 +334,61 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
     Includes all of the 3rd party JavaScript libraries above.
     The bundle was generated using modern frontend development tools that are provided with the package
     To learn more about the development process, please refer to the documentation.
- <script src="{{asset('js/vendor/all.js')}}"></script>
+    Do not use it simultaneously with the separate bundles above. -->
+  <script src="js/vendor/all.js"></script>
 
+  <!-- Vendor Scripts Standalone Libraries -->
+  <!-- <script src="js/vendor/core/all.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.js"></script> -->
+  <!-- <script src="js/vendor/core/bootstrap.js"></script> -->
+  <!-- <script src="js/vendor/core/breakpoints.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
+  <!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
+  <!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+  <!-- <script src="js/vendor/core/handlebars.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+  <!-- <script src="js/vendor/core/load_image.js"></script> -->
+  <!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
+  <!-- <script src="js/vendor/core/modernizr.js"></script> -->
+  <!-- <script src="js/vendor/core/velocity.js"></script> -->
+  <!-- <script src="js/vendor/tables/all.js"></script> -->
+  <!-- <script src="js/vendor/forms/all.js"></script> -->
+  <!-- <script src="js/vendor/media/slick.js"></script> -->
+  <!-- <script src="js/vendor/charts/flot/all.js"></script> -->
+  <!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
+  <!-- <script src="js/vendor/countdown/all.js"></script> -->
+  <!-- <script src="js/vendor/angular/all.js"></script> -->
 
-<script src="{{asset('js/app/app.js')}}"></script>
+  <!-- App Scripts Bundle
+    Includes Custom Application JavaScript used for the current theme/module;
+    Do not use it simultaneously with the standalone modules below. -->
+  <script src="js/app/app.js"></script>
+
+  <!-- App Scripts Standalone Modules
+    As a convenience, we provide the entire UI framework broke down in separate modules
+    Some of the standalone modules may have not been used with the current theme/module
+    but ALL the modules are 100% compatible -->
+
+  <!-- <script src="js/app/essentials.js"></script> -->
+  <!-- <script src="js/app/material.js"></script> -->
+  <!-- <script src="js/app/layout.js"></script> -->
+  <!-- <script src="js/app/sidebar.js"></script> -->
+  <!-- <script src="js/app/media.js"></script> -->
+  <!-- <script src="js/app/messages.js"></script> -->
+  <!-- <script src="js/app/maps.js"></script> -->
+  <!-- <script src="js/app/charts.js"></script> -->
+
+  <!-- App Scripts CORE [html]:
+        Includes the custom JavaScript for this theme/module;
+        The file has to be loaded in addition to the UI modules above;
+        app.js already includes main.js so this should be loaded
+        ONLY when using the standalone modules; -->
+  <!-- <script src="js/app/main.js"></script> -->
+
 </body>
 
 

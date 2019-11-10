@@ -29,7 +29,7 @@
   <div class="container">
 
     <div class="page-section">
-      <h4 class="page-section-heading">View Students</h4>
+      <h4 class="page-section-heading">Facilitators</h4>
       <div class="panel panel-default">
         <!-- Data table -->
         <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
@@ -56,24 +56,24 @@
             </tr>
           </tfoot>
           <tbody>
-          @foreach($students as $student)
+          @foreach($facilitators as $tutor)
             <tr>
-              <td>{{$student->firstname}}</td>
-              <td>{{$student->lastname}}</td>
-              <td>{{$student->email}}</td>
-              <td>{{$student->phone}}</td>
-              <td>{{$student->country}}</td>
-              <td>{{$student->created_at}}</td>
+              <td>{{$tutor->firstname}}</td>
+              <td>{{$tutor->lastname}}</td>
+              <td>{{$tutor->email}}</td>
+              <td>{{$tutor->phone}}</td>
+              <td>{{$tutor->country}}</td>
+              <td>{{$tutor->created_at}}</td>
 
-              <td>  <a title="View" style="color:#001a57;" href="{{route('student.profile',$student->id)}}" ><i class="fa fa-eye"></i></a>
+              <td>  <a title="View" style="color:#001a57;" href="{{route('facilitator.profile',$tutor->id)}}" ><i class="fa fa-eye"></i></a>
                 &nbsp
                 &nbsp
-                @if(!$student->active)
+                @if(!$tutor->active)
 
-                    <a title="Enable" href="{{route('student.disable',$student->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
+                    <a title="Enable" href="{{route('student.disable',$tutor->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
                 @endif
-                @if($student->active)
-                    <a title="Disable" href="{{route('student.disable',$student->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
+                @if($tutor->active)
+                    <a title="Disable" href="{{route('student.disable',$tutor->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
                 @endif
                </td>
 

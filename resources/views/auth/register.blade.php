@@ -151,6 +151,20 @@
                         </div>
                         <div class="form-group">
                             <div class="form-control-material">
+                                <select id="country" name="country" class="form-control">
+                                    <option value="Canada">Canada </option>
+                                    <option value="Nigeria">Nigeria </option>
+                                </select>
+                                <label for="country">Country</label>
+                                @error('country')
+                                <span class="alert text-danger" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-control-material">
                                 <input name="password" id="password" type="password" class="form-control" placeholder="Password">
                                 <label for="password">Password</label>
                                 @error('password')

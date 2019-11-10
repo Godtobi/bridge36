@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\FacilitatorsHelper;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,49 +14,62 @@ use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 use App\Module;
 use App\Lessons;
+use App\Helpers\CourseHelper;
+use App\Helpers\StudentHelper;
+
 
 class AdminController extends Controller
 {
-    public function __construct()
+    protected $courseHelper;
+    protected $studentHelper;
+    protected $facilitator;
+
+    public function __construct(CourseHelper $courseHelper, StudentHelper $studentHelper, FacilitatorsHelper $facilitators)
     {
         $this->middleware('auth');
+        $this->courseHelper=$courseHelper;
+        $this->studentHelper=$studentHelper;
+        $this->facilitator=$facilitators;
     }
 
     public function index(){
-        $courses=DB::table('courses')->take(6)->get();
-        $students=DB::table('users')->take(6)->get();
+        $courses= $this->courseHelper->adminSelectSix();
+        $students=$this->studentHelper->adminSelectSix();
         return view('admin.dashboard',compact('courses','students'));
     }
 
-  public function course(){
-      $courses=DB::table('courses')->orderBy('created_at', 'desc')->get();
-      $students=DB::table('users')->take(6)->get();
+    public function course(){
+
+      $courses=$this->courseHelper->adminSelectAll();
+      $students=$this->studentHelper->adminSelectSix();
       return view('admin.admin-courses',compact('courses','students'));
-  }
+    }
 
     public function createCourse(){
-        $students=DB::table('users')->take(6)->get();
+
+        $students=$this->studentHelper->adminSelectSix();
         return view('admin.edit-course',compact('students'));
     }
 
     public function createCourseDescription(){
-        $students=DB::table('users')->take(6)->get();
+
+        $students=$this->studentHelper->adminSelectSix();
         return view('admin.course-edit-description',compact('students'));
     }
 
     public function lessons($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $lessons=DB::table('lessons')->where('course_id',$id)->get();
         return view('admin.course-lessons',compact('lessons','id','students'));
     }
 
     public function createLesson($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         return view('admin.add_lesson',compact('id','students'));
     }
 
     public function editCourse($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $course=Courses::findorfail($id);
         return view('admin.update-course',compact('course','students'));
     }
@@ -76,7 +90,7 @@ class AdminController extends Controller
 
     public function editDescription($id){
         $course=Courses::findorfail($id);
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         return view('admin.update-description',compact('course','students'));
     }
 
@@ -127,9 +141,8 @@ class AdminController extends Controller
     public function profile($id){
 //        $user=DB::table('users')->where('id',auth()->user()->id)->get()[0];
         $user = User::findOrFail($id);
-        $courses=DB::table('paid_courses')->where('user_id',$id)->get();
 
-        return view('admin.student-profile',compact('user','courses'));
+        return view('admin.student-profile',compact('user','id'));
     }
 
     public function moduleCreate($id){
@@ -153,33 +166,50 @@ class AdminController extends Controller
     }
 
     public function moduleShow($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $modules=DB::table('modules')->where('course_id',$id)->get();
         $course=DB::table('courses')->where('id',$id)->get()[0];
         return view('admin.showmodules',compact('modules','course','students'));
     }
 
     public function lessonShow($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $lessons=DB::table('lessons')->where('module_id',$id)->get();
         $module=DB::table('modules')->where('id',$id)->get()[0];
         return view('admin.lesson-show',compact('lessons','module','students'));
     }
 
     public function lessonCreate($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $module=DB::table('modules')->where('id',$id)->get()[0];
         return view('admin.add_lesson_mod',compact('id','course','module','students'));
     }
 
     public function lessonStore(){
+
         $data = request()->validate([
             'name'=>'required',
-            'description'=>'required',
+            'image'=>'',
             'module_id'=>'',
         ]);
 
-        if(Lessons::create($data)){
+
+        if (request()->has('image')) {
+
+            $filename = Str::random(8);
+            $extension = request()->file('image')->getClientOriginalExtension();
+            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+            request()->file('image')->move('uploads', $fileNameToStore);
+
+            $data['image']=$fileNameToStore;
+        }
+
+        $lesson =new Lessons();
+        $lesson->image=$data['image'];
+        $lesson->name=$data['name'];
+        $lesson->module_id=$data['module_id'];
+
+        if($lesson->save()){
             return redirect()->back()->with('success','Lesson Created Successfully');
         }
 
@@ -187,7 +217,7 @@ class AdminController extends Controller
     }
 
     public function editLesson($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $lesson=DB::table('lessons')->where('id',$id)->get()[0];
         return view('admin.edit_lesson_mod',compact('id','course','lesson','students'));
     }
@@ -209,7 +239,7 @@ class AdminController extends Controller
     }
 
     public function editModule($id){
-        $students=DB::table('users')->take(6)->get();
+        $students=$this->studentHelper->adminSelectSix();
         $module=DB::table('modules')->where('id',$id)->get()[0];
         return view('admin.updateModule',compact('id','course','module','students'));
     }
@@ -229,6 +259,52 @@ class AdminController extends Controller
             return redirect()->route('module.show',$module->course_id)->with('error','Lesson Updated Sucesfully');
         }
         return redirect()->back()->with('error','Something wrong please try again');
+    }
+
+    public function studentCourse($id){
+        $courses=DB::table('paid_courses')->where('user_id',$id)->get();
+        return view('admin.student-courses',compact('id','courses'));
+    }
+
+    public function facilitators(){
+
+        $facilitators = $this->facilitator->facilitators();
+
+        return view('admin.facilitators',compact('id','facilitators'));
+    }
+
+    public function facilitator_profile($id){
+
+        $user = User::findOrFail($id);
+
+        return view('admin.facilitator-profile',compact('user','id'));
+    }
+
+    public function facilitatorCourse($id){
+        $courses=DB::table('paid_courses')->where('user_id',$id)->get();
+        return view('admin.student-courses',compact('id','courses'));
+    }
+
+    public function assignTutor($id){
+        $tutors=User::theList();
+        $students=$this->studentHelper->adminSelectSix();
+        return view('admin.assign-tutor',compact('tutors','id','students'));
+    }
+
+    public function saveTutor(){
+        $data=request()->validate([
+            'id'=>'',
+            'tutor_id'=>'required'
+        ]);
+
+        $course = Courses::findorfail($data['id']);
+        $course->tutor_id=$course['tutor_id'];
+
+        if($course->save()){
+            return back()->with('success','Tutor added successfully');
+        }
+
+        return back()->with('error','Something went wrong please try again.');
     }
 
 }

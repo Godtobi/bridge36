@@ -32,13 +32,12 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
+
         $role = Auth::user()->role;
         $email = Auth::user()->email;
 
-
-        if($role || $email=='admin17@admin.com'){
+        if(auth()->user()->hasAnyRole(['admin']) || $email=='admin@gmail.com'){
             return route('admin.dashboard');
-
         }
         return route('dashboard');
     }

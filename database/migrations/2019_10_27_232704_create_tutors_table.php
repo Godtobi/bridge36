@@ -23,6 +23,8 @@ class CreateTutorsTable extends Migration
             $table->string('image');
             $table->string('biography');
             $table->integer('course_id');
+            $table->integer('role_id')->default(2);
+
         });
     }
 

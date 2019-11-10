@@ -8,6 +8,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use App\Tutors;
 use Illuminate\Support\Facades\DB;
+use App\User;
 
 class TutorController extends Controller
 {
@@ -98,4 +99,6 @@ class TutorController extends Controller
       $tutor->save();
       return redirect()->back()->with('success','Tutor Created Succesfully');
   }
+
+
 }

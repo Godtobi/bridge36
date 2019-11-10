@@ -8,12 +8,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
+use App\Helpers\StudentHelper;
 
 class StudentController extends Controller
 {
-    public function __construct()
+    protected $studentHelper;
+
+    public function __construct(StudentHelper $studentHelper)
     {
         $this->middleware('auth');
+        $this->studentHelper=$studentHelper;
     }
 
     public function index(){
@@ -128,7 +132,8 @@ class StudentController extends Controller
     }
 
     public function students(){
-        $students=DB::table('users')->where('role',false)->get();
+        $students = $this->studentHelper->adminSelectAll();
+
         return view('admin.students',compact('students'));
     }
 

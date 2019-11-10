@@ -2,7 +2,7 @@
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-student-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:14 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
@@ -17,7 +17,45 @@
     TIP: Using bundles will improve performance by reducing the number of network requests the client needs to make when loading the page. -->
   <link href="{{asset('css/vendor/all.css')}}" rel="stylesheet">
 
+  <!-- Vendor CSS Standalone Libraries
+        NOTE: Some of these may have been customized (for example, Bootstrap).
+        See: src/less/themes/{theme_name}/vendor/ directory -->
+  <!-- <link href="css/vendor/bootstrap.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/font-awesome.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/picto.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/material-design-iconic-font.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/datepicker3.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/jquery.minicolors.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/railscasts.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/owl.carousel.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/slick.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/daterangepicker-bs3.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/jquery.bootstrap-touchspin.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/select2.css" rel="stylesheet"> -->
+  <!-- <link href="css/vendor/jquery.countdown.css" rel="stylesheet"> -->
+
+  <!-- APP CSS BUNDLE [css/app/app.css]
+INCLUDES:
+    - The APP CSS CORE styling required by the "html" module, also available with main.css - see below;
+    - The APP CSS STANDALONE modules required by the "html" module;
+NOTE:
+    - This bundle may NOT include ALL of the available APP CSS STANDALONE modules;
+      It was optimised to load only what is actually used by the "html" module;
+      Other APP CSS STANDALONE modules may be available in addition to what's included with this bundle.
+      See src/less/themes/html/app.less
+TIP:
+    - Using bundles will improve performance by greatly reducing the number of network requests the client needs to make when loading the page. -->
   <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
+
+
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!-- If you don't need support for Internet Explorer <= 8 you can safely remove these -->
+  <!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
 
 </head>
 
@@ -25,6 +63,7 @@
 
   <!-- Fixed navbar -->
 @include('admin.nav')
+
   <div class="container">
 
     <div class="page-section">
@@ -37,95 +76,89 @@
 
             <!-- Tabs -->
             <ul class="nav nav-tabs">
-              <li><a  href="{{route('lesson.show',$module->id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Lessons</span></a></li>
-              <li class="active"><a  href="{{route('lesson.form',$module->id)}}"><i class="fa fa-fw fa-plus"></i> <span class="hidden-sm hidden-xs">Add lesson</span></a></li>
+              <li ><a href="{{route('student.profile',$id)}} "><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
+              <li class="active"><a href="{{route('student.allCourse',$id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Course History</span></a></li>
+
             </ul>
             <!-- // END Tabs -->
 
-            <!-- Panes -->    <div class="tab-content">
+            <!-- Panes -->
+            <div class="tab-content">
 
-                  <div id="course" class="tab-pane active">
-                    @if (session('success'))
-                      <div class=" text-center alert alert-success">
-                        {!!  session('success') !!}
-                      </div>
-                    @endif
-                    @if (session('error'))
-                      <div class="text-center alert alert-warning">
-                        {{ session('error') }}
-                      </div>
-                    @endif
-                      <form method="post" action="{{route('store.lesson')}}" class="form-horizontal" enctype="multipart/form-data" >
-                        {{csrf_field()}}
-
-                        <div class=" form-group form-control-material">
-                          <div class="col-offset-md-6">
-                            <input type="text" name="name" id="title"  class="form-control used"  />
-                            <div>
-                              @error('name')
-                              <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                              @enderror
-                            </div>
-                            <label for="title">Title</label>
-                          </div>
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                          <label for="inputEmail3" class="col-sm-3 control-label">Lesson Content</label>
-                          <div class="col-md-6">
-                            <div class="media v-middle">
-                              <div class="media-left">
-                                <div class="icon-block width-100 bg-grey-100">
-                                  <i class="fa fa-photo text-light"></i>
-                                </div>
-                              </div>
-
-                              <div class="media-body">
-                                <input name="image" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
-                              </div>
-                              <div>
-                                @error('image')
-                                <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                @enderror
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <input type="hidden" value="{{$id}}" name="module_id">
-
-
-                        <div class="text-right">
-                          <button type="submit" class="btn btn-primary" >Save</button>
-
-                        </div>
-                      </form>
-
+              <div id="account" class="tab-pane active">
+                @if (session('success'))
+                  <div class=" text-center alert alert-success">
+                    {!!  session('success') !!}
                   </div>
+                @endif
+                @if (session('error'))
+                  <div class="text-center alert alert-warning">
+                    {{ session('error') }}
+                  </div>
+                @endif
+                  <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                      <th>Course Name</th>
+                      <th>Start date</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                      <th>Course Name</th>
+                      <th>Start date</th>
+                      <th>Actions</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    @foreach($courses as $course)
+                      <tr>
+                        <td>{{$course->name}}</td>
 
-                </div>
+                        <td>{{$course->created_at}}</td>
+
+                        <td>
+                          {{--<a title="View" style="color:#001a57;" href="{{route('student.profile',$student->id)}}" ><i class="fa fa-eye"></i></a>--}}
+                          &nbsp
+                          &nbsp
+                          @if(!$student->active)
+
+                            <a title="Enable" href="{{route('student.disable',$student->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
+                          @endif
+                          @if($student->active)
+                            <a title="Disable" href="{{route('student.disable',$student->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
+                          @endif
+                        </td>
+
+                      </tr>
+                    @endforeach
+
+                    </tbody>
+                  </table>
+
+
+            </div>
             <!-- // END Panes -->
 
           </div>
-          <!-- // END Tabbable Widget -->
-
           <br/>
           <br/>
 
         </div>
-  @include('admin.right-pane')
 
+
+        </div>
+        @include('admin.upper-right')
       </div>
     </div>
 
   </div>
 
+
   <!-- Footer -->
   <footer class="footer">
-    <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    <strong>56 Bridge</strong> &copy; Copyright 2019
   </footer>
   <!-- // Footer -->
 
@@ -216,5 +249,5 @@
 </body>
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-student-profile.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:14 GMT -->
 </html>

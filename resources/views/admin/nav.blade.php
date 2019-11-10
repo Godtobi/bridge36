@@ -30,9 +30,14 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="{{route('students')}}"><i class="fa fa-mortar-board"></i> Students</a>
-
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i> Users</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('students')}}"> Students</a></li>
+                        <li><a href="{{route('user.create')}}"> Create User</a></li>
+                        <li><a href="{{route('facilitators')}}">Facilitators</a></li>
+                    </ul>
                 </li>
+
                 <li class="dropdown ">
                     <a href="{{route('messages')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-inbox"></i> Messaging <span class="caret"></span></a>
                     <ul class="dropdown-menu">

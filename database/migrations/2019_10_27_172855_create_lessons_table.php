@@ -15,7 +15,7 @@ class CreateLessonsTable extends Migration
     {
         Schema::create('lessons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('description');
+            $table->text('image')->nullable();
             $table->string('name');
             $table->integer('module_id');
             $table->timestamps();

@@ -98,11 +98,11 @@
 
                     <!-- Tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active" ><a href="{{route('update.course',$course->id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
-                        <li class=""><a href="{{route('update.description',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
-                        <li class=""><a href="{{route('assign.tutor',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
-                        <li class=""><a href="{{route('module.create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
-                        <li><a href="{{route('module.show',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
+                        <li><a href="{{route('update.course',$id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
+                        <li class=""><a href="{{route('update.description',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
+                        <li class="active"><a href="{{route('assign.tutor',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
+                        <li class=""><a href="{{route('module.create',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
+                        <li><a href="{{route('module.show',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
                     </ul>
                     <!-- // END Tabs -->
 
@@ -120,30 +120,23 @@
                         @endif
 
                         <div id="course" class="tab-pane active">
-                            <form action="{{route('update.course.store',$course->id)}}" method="post">
+                            <form action="{{route('store.tutor')}}" method="post">
                                 {{csrf_field()}}
-                                <div class="form-group form-control-material">
 
-                                    <input type="text" name="name" id="title" value="{{  $course->name }}" class="form-control used"  />
-                                    <div>
-                                        @error('name')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                    <label for="title">Title</label>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description"  id="description" cols="30" rows="10" class="summernote">{{$course->description}} </textarea>
-                                    <div>
-                                        @error('description')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="text-right">
+                                <input type="hidden" value="{{$id}}" name="id" >
 
-                                    <button type="submit" class="btn btn-primary" >Next</button>
+                                <div class="form-group {{ $errors->has('tutor_id') ? 'has-error' : ''}}">
+                                    {!! Form::label('tutor_id', 'Facilitator', ['class' => 'col-sm-2 control-label']) !!}
+                                    <div class="col-sm-10">
+                                        {!! Form::select('tutor_id', $tutors, null, ['class' => 'form-control', 'placeholder' => 'Pick a Tutor...']) !!}
+                                        {!! $errors->first('tutor_id', '<p class="help-block">:message</p>') !!}
+                                    </div>
+
+                                </div>
+
+                                <div class="text-center">
+
+                                    <button type="submit" class="btn btn-primary" >Save</button>
                                 </div>
                             </form>
 
