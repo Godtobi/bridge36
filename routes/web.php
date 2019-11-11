@@ -65,6 +65,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/students', 'StudentController@students')->name('students');
     Route::get('/student/disable/{id}', 'StudentController@destroy')->name('student.disable');
 
+    Route::get('/admin/profile', 'AdminController@adminProfile')->name('admins_profile');
+    Route::post('/admin/profile', 'AdminController@adminProfileUpdate')->name('admins_profile_update');
+
     Route::get('/admin/create-module/{id}', 'AdminController@moduleCreate')->name('module.create');
     Route::post('/module/', 'AdminController@moduleStore')->name('module.store');
     Route::get('/admin/modules/{id}', 'AdminController@moduleShow')->name('module.show');

@@ -47,7 +47,7 @@
                     </ul>
                 </li>
                 <li class="">
-                    <a href="{{route('profile.update')}}" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Profile</a>
+                    <a href="{{route('admins_profile')}}" class="dropdown-toggle" ><i class="fa fa-user"></i> Profile</a>
                 </li>
 
             </ul>

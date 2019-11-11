@@ -307,4 +307,48 @@ class AdminController extends Controller
         return back()->with('error','Something went wrong please try again.');
     }
 
+    public function adminProfile(){
+        $user=User::findorfail(auth()->user()->id);
+        return view('admin.admin-profile',compact('user'));
+    }
+
+    public function adminProfileUpdate(){
+        $data=request()->validate([
+            'email'=>'',
+            'firstname'=>'required',
+            'lastname'=>'required',
+            'phone'=>''
+        ]);
+
+        $user = User::findorfail(auth()->user()->id);
+
+        if (request()->has('email')){
+            $user->email=$data['email'];
+        }
+        if (request()->has('phone')){
+            $user->phone=$data['phone'];
+        }
+        $user->firstname=$data['firstname'];
+        $user->lastname=$data['lastname'];
+        
+
+        if (request()->has('image')) {
+            $namer=Str::random(8);
+            $image = request()->file('image');
+            $image_resize=Image::make($image)->resize(320,240);
+            $name = Str::slug($namer).'_'.time();
+            $folder = '/uploads/';
+            $filePath = $folder . $name. '.' . $image->getClientOriginalExtension();
+            $image_resize->save('storage'.$filePath);
+            $data['image']=$filePath;
+            $user->image=$filePath;
+        }
+
+        if($user->save()){
+            return back()->with('success','Profile Updated Successfully');
+        }
+
+        return back()->with('error','Something went wrong. please try again');
+
+    }
 }
