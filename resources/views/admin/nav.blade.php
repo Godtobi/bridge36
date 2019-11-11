@@ -81,7 +81,18 @@
                 <p class="text-subhead"><a class="link-white text-underline" href="">View my History</a></p>
             </div>
             <div class="media-right">
-                <span class="label bg-blue-500">Admin</span>
+                <?php if (auth()->user()->hasAnyRole(['admin'])): ?>
+                <span class="label bg-blue-500">Super Admin</span>
+                    <?php endif; ?>
+                    <?php if (auth()->user()->hasAnyRole(['canada_admin'])): ?>
+                    <span class="label bg-blue-500">Canada Admin</span>
+                    <?php endif; ?>
+                    <?php if (auth()->user()->hasAnyRole(['nigeria_admin'])): ?>
+                    <span class="label bg-blue-500">Nigeria Admin</span>
+                    <?php endif; ?>
+                    <?php if (auth()->user()->hasAnyRole(['facilitator'])): ?>
+                    <span class="label bg-blue-500">Facilitator</span>
+                    <?php endif; ?>
             </div>
         </div>
     </div>
