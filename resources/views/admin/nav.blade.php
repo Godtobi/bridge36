@@ -33,8 +33,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i> Users</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('students')}}"> Students</a></li>
+                        <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
                         <li><a href="{{route('user.create')}}"> Create User</a></li>
                         <li><a href="{{route('facilitators')}}">Facilitators</a></li>
+                        <?php endif; ?>
                     </ul>
                 </li>
 

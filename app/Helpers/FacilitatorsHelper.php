@@ -28,10 +28,13 @@ class FacilitatorsHelper
     public function facilitators(){
 
         if(auth()->user()->hasAnyRole(['admin'])){
-            $facilitators=DB::table('users')->get();
+            $facilitators=User::whereHas('roles', function ($q) {
+                $q->Where('name', 'facilitator'); })->get();
+
         }
         else{
-            $facilitators=DB::table('users')->where('country',$this->country())->get();
+            $facilitators=User::where('country',$this->country())->whereHas('roles', function ($q) {
+                $q->Where('name', 'facilitator'); })->get();
         }
         return $facilitators;
     }

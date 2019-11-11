@@ -70,12 +70,16 @@ class CourseController extends Controller
 
         $data=array_merge((array)$input,$data);
 
+        if(auth()->user()->hasAnyRole(['facilitator'])){
+            $data['tutor_id']=auth()->user()->id;
+        }
+
         try{
             $check=Courses::create($data)->id;
 //            Session::put('id',$check);
             Session::put('input','');
 
-            return redirect()->route('admin.courses')->with('success','Course Created Successfully. Add a Tutor.');
+            return redirect()->route('admin.courses')->with('success','Course Created Successfully.');
 
         }
         catch(Exception $exception){
