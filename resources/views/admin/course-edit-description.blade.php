@@ -95,10 +95,9 @@
                                     <label for="select" class="col-sm-3 control-label">Category</label>
                                     <div class="col-sm-9 col-md-9">
                                         <select name="category" id="select" class="form-control select2">
-                                            <option value="#">HTML</option>
-                                            <option value="#">Angular JS</option>
-                                            <option value="#">CSS / LESS</option>
-                                            <option value="#">Design / Concept</option>
+                                            <option value="online">Online</option>
+                                            <option value="class">Class</option>
+
                                         </select>
                                     </div>
                                     <div>
@@ -107,6 +106,23 @@
                                         @enderror
                                     </div>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="select" class="col-sm-3 control-label">Country</label>
+                                    <div class="col-sm-9 col-md-9">
+                                        <select name="country" id="select" class="form-control select2">
+                                            <option value="canada">Canada</option>
+                                            <option value="nigeria">Nigeria</option>
+
+                                        </select>
+                                    </div>
+                                    <div>
+                                        @error('country')
+                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-3 control-label">Course Image</label>
                                     <div class="col-md-6">

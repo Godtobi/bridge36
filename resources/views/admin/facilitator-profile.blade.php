@@ -104,7 +104,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       <div class="media v-middle">
                         <div class="media-left">
                           <div class="icon-block width-100 bg-grey-100">
-                            <img src="{{asset('/storage'.$user->image)}}">
+                            <img style="width: 30%;" src=" {{asset('/storage'.$user->image)}}">
 
                           </div>
                         </div>

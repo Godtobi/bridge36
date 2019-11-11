@@ -41,7 +41,7 @@ class StudentController extends Controller
     }
 
     public function studentCourses(){
-        $courses=DB::table('courses')->where('active',true)->get();
+        $courses=DB::table('courses')->where('active',true)->where('country',auth()->user()->country)->get();
         $paid=DB::table('paid_courses')->where('user_id',auth()->user()->id)->get();
         $bucket=[];
         foreach($paid as $item){
@@ -179,7 +179,7 @@ class StudentController extends Controller
         $students=DB::table('paid_courses')->where('course_id',$id)
             ->join('users', 'users.id', '=', 'paid_courses.user_id')
             ->where('users.id','paid_courses.user_id')
-            ->select('users.lastname','users.firstname','users.email')
+            ->select('users.lastname','users.firstname')
             ->get();
 
         return view('admin.course-students',compact('students','id'));

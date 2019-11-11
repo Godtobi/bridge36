@@ -8,6 +8,6 @@ class Courses extends Model
 {
 
     protected $fillable = [
-        'name','description', 'duration' ,'category','image','price'
+        'name','description', 'duration' ,'category','image','price','country'
     ];
 }

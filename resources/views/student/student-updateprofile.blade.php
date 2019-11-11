@@ -173,7 +173,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       <div class="form-control-material">
                         <div class="input-group">
                           <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
-                          <input type="number" name="phone" class="form-control used" id="phone">
+                          <input type="tel" value="{{$user->phone}}" name="phone" class="form-control used" id="phone">
                         <div>
                           @error('phone')
                           <span class="alert text-danger">

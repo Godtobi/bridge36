@@ -52,6 +52,7 @@ class CourseController extends Controller
             'category'=>'required',
             'duration'=>'required',
             'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'country'=>'required',
             'price'=>''
         ]);
 
