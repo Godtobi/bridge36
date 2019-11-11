@@ -2,7 +2,7 @@
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:19 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-meta.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:27 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8">
@@ -98,14 +98,14 @@
 
                     <!-- Tabs -->
                     <ul class="nav nav-tabs">
-                        <li><a href="{{route('update.course',$id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
-                        <li class=""><a href="{{route('update.description',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
+                        <li ><a href="{{route('update.course',$id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
+                        <li ><a href="{{route('update.description',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
                         <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
-                        <li class="active"><a href="{{route('assign.tutor',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
+                        <li class=""><a href="{{route('assign.tutor',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
                         <?php endif; ?>
                         <li class=""><a href="{{route('module.create',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
                         <li><a href="{{route('module.show',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
-                        <li><a href="{{route('course.students',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
+                        <li class="active"><a href="{{route('course.students',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
                     </ul>
                     <!-- // END Tabs -->
 
@@ -121,28 +121,49 @@
                                 {{ session('error') }}
                             </div>
                         @endif
+                        <div id="meta" class="tab-pane active">
+                            <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                @foreach($students as $student)
+                                    <tr>
+                                        <td>{{$student->firstname}}</td>
+                                        <td>{{$student->lastname}}</td>
+                                        <td>{{$student->email}}</td>
 
-                        <div id="course" class="tab-pane active">
-                            <form action="{{route('store.tutor')}}" method="post">
-                                {{csrf_field()}}
+                                        <td>  <a title="View" style="color:#001a57;" href="{{route('student.profile',$student->id)}}" ><i class="fa fa-eye"></i></a>
+                                            &nbsp
+                                            &nbsp
+                                            @if(!$student->active)
 
-                                <input type="hidden" value="{{$id}}" name="id" >
+                                                <a title="Enable" href="{{route('student.disable',$student->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
+                                            @endif
+                                            @if($student->active)
+                                                <a title="Disable" href="{{route('student.disable',$student->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
+                                            @endif
+                                        </td>
 
-                                <div class="form-group {{ $errors->has('tutor_id') ? 'has-error' : ''}}">
-                                    {!! Form::label('tutor_id', 'Facilitator', ['class' => 'col-sm-2 control-label']) !!}
-                                    <div class="col-sm-10">
-                                        {!! Form::select('tutor_id', $tutors, null, ['class' => 'form-control', 'placeholder' => 'Pick a Tutor...']) !!}
-                                        {!! $errors->first('tutor_id', '<p class="help-block">:message</p>') !!}
-                                    </div>
+                                    </tr>
+                                @endforeach
 
-                                </div>
-
-                                <div class="text-center">
-
-                                    <button type="submit" class="btn btn-primary" >Save</button>
-                                </div>
-                            </form>
-
+                                </tbody>
+                            </table>
+                            <!-- // Data table -->
                         </div>
 
                     </div>
@@ -156,7 +177,6 @@
 
             </div>
 @include('admin.right-pane')
-
         </div>
     </div>
 
@@ -200,13 +220,60 @@
   Do not use it simultaneously with the separate bundles above. -->
 <script src="{{asset('js/vendor/all.js')}}"></script>
 
+<!-- Vendor Scripts Standalone Libraries -->
+<!-- <script src="js/vendor/core/all.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.js"></script> -->
+<!-- <script src="js/vendor/core/bootstrap.js"></script> -->
+<!-- <script src="js/vendor/core/breakpoints.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
+<!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
+<!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
+<!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+<!-- <script src="js/vendor/core/handlebars.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+<!-- <script src="js/vendor/core/load_image.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
+<!-- <script src="js/vendor/core/modernizr.js"></script> -->
+<!-- <script src="js/vendor/core/velocity.js"></script> -->
+<!-- <script src="js/vendor/tables/all.js"></script> -->
+<!-- <script src="js/vendor/forms/all.js"></script> -->
+<!-- <script src="js/vendor/media/slick.js"></script> -->
+<!-- <script src="js/vendor/charts/flot/all.js"></script> -->
+<!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
+<!-- <script src="js/vendor/countdown/all.js"></script> -->
+<!-- <script src="js/vendor/angular/all.js"></script> -->
 
+<!-- App Scripts Bundle
+  Includes Custom Application JavaScript used for the current theme/module;
+  Do not use it simultaneously with the standalone modules below. -->
 <script src="{{asset('js/app/app.js')}}"></script>
 
+<!-- App Scripts Standalone Modules
+  As a convenience, we provide the entire UI framework broke down in separate modules
+  Some of the standalone modules may have not been used with the current theme/module
+  but ALL the modules are 100% compatible -->
 
+<!-- <script src="js/app/essentials.js"></script> -->
+<!-- <script src="js/app/material.js"></script> -->
+<!-- <script src="js/app/layout.js"></script> -->
+<!-- <script src="js/app/sidebar.js"></script> -->
+<!-- <script src="js/app/media.js"></script> -->
+<!-- <script src="js/app/messages.js"></script> -->
+<!-- <script src="js/app/maps.js"></script> -->
+<!-- <script src="js/app/charts.js"></script> -->
+
+<!-- App Scripts CORE [html]:
+      Includes the custom JavaScript for this theme/module;
+      The file has to be loaded in addition to the UI modules above;
+      app.js already includes main.js so this should be loaded
+      ONLY when using the standalone modules; -->
+<!-- <script src="js/app/main.js"></script> -->
 
 </body>
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:19 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-meta.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:27 GMT -->
 </html>

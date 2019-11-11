@@ -67,6 +67,8 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 
     Route::get('/admin/profile', 'AdminController@adminProfile')->name('admins_profile');
     Route::post('/admin/profile', 'AdminController@adminProfileUpdate')->name('admins_profile_update');
+    Route::get('/course/{id}/students', 'StudentController@courseStudent')->name('course.students');
+
 
     Route::get('/admin/create-module/{id}', 'AdminController@moduleCreate')->name('module.create');
     Route::post('/module/', 'AdminController@moduleStore')->name('module.store');

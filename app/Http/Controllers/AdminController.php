@@ -330,7 +330,7 @@ class AdminController extends Controller
         }
         $user->firstname=$data['firstname'];
         $user->lastname=$data['lastname'];
-        
+
 
         if (request()->has('image')) {
             $namer=Str::random(8);

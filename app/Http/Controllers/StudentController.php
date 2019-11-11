@@ -174,4 +174,15 @@ class StudentController extends Controller
             return back()->with('error','Something went wrong please try again.');
         }
     }
+
+    public function courseStudent($id){
+        $students=DB::table('paid_courses')->where('course_id',$id)
+            ->join('users', 'users.id', '=', 'paid_courses.user_id')
+            ->where('users.id','paid_courses.user_id')
+            ->select('users.lastname','users.firstname','users.email')
+            ->get();
+
+        return view('admin.course-students',compact('students','id'));
+
+    }
 }

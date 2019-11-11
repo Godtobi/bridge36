@@ -35,6 +35,22 @@ class StudentHelper
         return $student;
     }
 
+    public function messagestudent(){
+        if(auth()->user()->hasAnyRole(['admin'])){
+            $student=DB::table('users')->where('id','!=',auth()->user()->id)->get();
+        }
+        elseif(auth()->user()->hasAnyRole(['facilitator'])){
+            $student = User::where('country',auth()->user()->country)->where('id','!=',auth()->user()->id)->whereHas('roles', function ($q) {
+                $q->Where('name', 'student'); })
+                ->whereHas('courses', function ($q) {
+                    $q->Where('tutor_id',auth()->user()->id); })->get();
+        }
+        else{
+            $student=DB::table('users')->where('country',auth()->user()->country)->where('id','!=',auth()->user()->id)->get();
+        }
+        return $student;
+    }
+
 
 
     public function adminSelectAll(){
@@ -58,5 +74,7 @@ class StudentHelper
     public function studentSelectAll(){
 
     }
+
+
 
 }

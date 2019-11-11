@@ -8,16 +8,20 @@ use Illuminate\Support\Facades\DB;
 use App\Messages;
 use Pusher\Pusher;
 use App\Events\Messenger;
+use App\Helpers\StudentHelper;
 class MessageController extends Controller
+
 {
-    public function __construct()
+    protected $studentHelper;
+    public function __construct(StudentHelper $studentHelper)
     {
         $this->middleware('auth');
+        $this->studentHelper=$studentHelper;
     }
 
     public function show(){
-        $users=User::where('id','!=',auth()->user()->id)->get();
-        if(auth()->user()->role){
+        $users=$this->studentHelper->messagestudent();
+        if(auth()->user()->hasAnyRole(['admin','nigeria_admin','canada_admin','facilitator'])){
             return view('admin.admin-messages',compact('users'));
         }
         return view('student.student-messages',compact('users'));
