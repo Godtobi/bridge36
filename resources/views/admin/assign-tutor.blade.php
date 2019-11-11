@@ -106,6 +106,7 @@
                         <li class=""><a href="{{route('module.create',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
                         <li><a href="{{route('module.show',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
                         <li><a href="{{route('course.students',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
+                        <li class=""><a href="{{route('course.facilitator',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Facilitator</span></a></li>
                     </ul>
                     <!-- // END Tabs -->
 

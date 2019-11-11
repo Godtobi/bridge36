@@ -298,7 +298,7 @@ class AdminController extends Controller
         ]);
 
         $course = Courses::findorfail($data['id']);
-        $course->tutor_id=$course['tutor_id'];
+        $course->tutor_id=$data['tutor_id'];
 
         if($course->save()){
             return back()->with('success','Tutor added successfully');

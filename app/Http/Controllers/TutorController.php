@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Courses;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
@@ -99,6 +100,19 @@ class TutorController extends Controller
       $tutor->save();
       return redirect()->back()->with('success','Tutor Created Succesfully');
   }
+
+    public function viewFacilitator($id){
+        $course=Courses::find($id);
+        $user=User::find($course->tutor_id);
+        if($user){
+
+            return view('admin.view-facilitator',compact('id','user'));
+        }
+        else{
+            return back()->with('error','Tutor has not been created for this course.');
+
+        }
+    }
 
 
 }
