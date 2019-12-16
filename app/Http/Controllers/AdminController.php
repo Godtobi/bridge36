@@ -34,8 +34,10 @@ class AdminController extends Controller
 
     public function index(){
         $courses= $this->courseHelper->adminSelectSix();
-        $students=$this->studentHelper->adminSelectSix();
-        return view('admin.dashboard',compact('courses','students'));
+        $course_no=count($this->courseHelper->adminSelectAll());
+        $students=$this->studentHelper->adminSelectAll();
+        $student_no=count($students);
+        return view('falcon.admin.index',compact('courses','students','student_no','course_no'));
     }
 
     public function course(){
