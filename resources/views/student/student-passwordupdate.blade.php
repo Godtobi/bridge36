@@ -134,7 +134,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       </div>
                   </div>
                   <div class="form-group">
-                    <label for="inputPassword3" class="col-md-2 control-label">Current Password</label>
+                    <label for="inputPassword3" class="col-md-2 control-label">New Password</label>
                     @error('new-password')
                     <span class="alert text-danger">
                                         <strong>{{ $message }}</strong>
@@ -148,7 +148,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                   </div>
 
                   <div class="form-group">
-                    <label for="inputPassword3" class="col-md-2 control-label">Confirm Password</label>
+                    <label for="inputPassword3" class="col-md-2 control-label">Confirm New Password</label>
                     @error('confirm-pass')
                     <span class="alert text-danger">
                                         <strong>{{ $message }}</strong>
@@ -156,7 +156,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     @enderror
                     <div class="col-md-6">
                       <div class="form-control-material">
-                        <input type="password" name="confirm-pass" class="form-control" id="inputPassword3" placeholder="Confirm Password">
+                        <input type="password" name="confirm-pass" class="form-control" id="inputPassword3" placeholder="Confirm New Password">
                       </div>
                     </div>
                   </div>
