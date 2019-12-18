@@ -17,6 +17,7 @@
         "laravel/framework": "^5.8",
         "laravel/tinker": "^1.0",
         "pusher/pusher-php-server": "^4.0",
+        "rap2hpoutre/fast-excel": "^1.5",
         "spatie/laravel-permission": "^3.2",
         "yajra/laravel-datatables": "1.5",
         "yajra/laravel-datatables-oracle": "^9.7"

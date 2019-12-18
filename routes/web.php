@@ -50,6 +50,10 @@ Route::get('/all','AdminController@getIndex')->name('datatables.data');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
 
+    Route::get('exams/create/{id}','ExamController@create')->name('exam-create');
+    Route::get('exams/example','ExamController@downloadExample')->name('exam-example');
+    Route::resource('exam','ExamController');
+
     Route::post('/admin/assign-role/', 'AdminController@saveTutor')->name('store.tutor');
     Route::get('/admin/assign-role/{id}', 'AdminController@assignTutor')->name('assign.tutor');
     Route::get('/facilitator/profile/{id}', 'AdminController@facilitator_profile')->name('facilitator.profile');

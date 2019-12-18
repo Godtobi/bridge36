@@ -2,7 +2,7 @@
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:19 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-meta.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:27 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <meta charset="utf-8">
@@ -98,16 +98,16 @@
 
                     <!-- Tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active" ><a href="{{route('update.course',$course->id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
-                        <li class=""><a href="{{route('update.description',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
+                        <li ><a href="{{route('update.course',$id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
+                        <li ><a href="{{route('update.description',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
                         <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
-                        <li class=""><a href="{{route('assign.tutor',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
+                        <li class=""><a href="{{route('assign.tutor',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
                         <?php endif; ?>
-                        <li><a href="{{route('exam-create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Upload Exam Questions</span></a></li>
-                        <li class=""><a href="{{route('module.create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
-                        <li><a href="{{route('module.show',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
-                        <li><a href="{{route('course.students',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
-                        <li class=""><a href="{{route('course.facilitator',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Facilitator</span></a></li>
+                        <li class="active"><a href="{{route('exam-create',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Upload Exam Questions</span></a></li>
+                        <li class=""><a href="{{route('module.create',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
+                        <li><a href="{{route('module.show',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
+                        <li><a href="{{route('course.students',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
+                        <li class=""><a href="{{route('course.facilitator',$id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Facilitator</span></a></li>
                     </ul>
                     <!-- // END Tabs -->
 
@@ -123,35 +123,48 @@
                                 {{ session('error') }}
                             </div>
                         @endif
-
-                        <div id="course" class="tab-pane active">
-                            <form action="{{route('update.course.store',$course->id)}}" method="post">
+                        <div id="meta" class="tab-pane active">
+                            <form method="post" action="{{route('exam.store')}}" class="form-horizontal" enctype="multipart/form-data" >
                                 {{csrf_field()}}
-                                <div class="form-group form-control-material">
 
-                                    <input type="text" name="name" id="title" value="{{  $course->name }}" class="form-control used"  />
-                                    <div>
-                                        @error('name')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                    <label for="title">Title</label>
-                                </div>
+                                <input name="course_id" value="{{$id}}" type="hidden">
+
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description"  id="description" cols="30" rows="10" class="summernote">{{$course->description}} </textarea>
-                                    <div>
-                                        @error('description')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
+                                    <label for="inputEmail3" class="col-sm-3 control-label">Upload Exam Question</label>
+                                    <div class="col-md-6">
+                                        <div class="media v-middle">
+                                            {{--<div class="media-left">--}}
+                                                {{--<div class="icon-block width-100 bg-grey-100">--}}
+                                                    {{--<i class="fa fa-photo text-light"></i>--}}
+                                                {{--</div>--}}
+                                            {{--</div>--}}
+
+                                            <div class="media-body">
+                                                <input name="file" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
+                                            </div>
+                                            <div>
+                                                @error('image')
+                                                <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="text-right">
 
-                                    <button type="submit" class="btn btn-primary" >Next</button>
+                                <div class="row">
+                                    <div class="text-center">
+                                       <a href="{{route('exam-example')}}">
+                                           <p>Click here to download an example</p>
+                                       </a>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary" >Save</button>
+
                                 </div>
                             </form>
-
                         </div>
 
                     </div>
@@ -165,7 +178,6 @@
 
             </div>
 @include('admin.right-pane')
-
         </div>
     </div>
 
@@ -209,13 +221,60 @@
   Do not use it simultaneously with the separate bundles above. -->
 <script src="{{asset('js/vendor/all.js')}}"></script>
 
+<!-- Vendor Scripts Standalone Libraries -->
+<!-- <script src="js/vendor/core/all.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.js"></script> -->
+<!-- <script src="js/vendor/core/bootstrap.js"></script> -->
+<!-- <script src="js/vendor/core/breakpoints.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
+<!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
+<!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
+<!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+<!-- <script src="js/vendor/core/handlebars.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+<!-- <script src="js/vendor/core/load_image.js"></script> -->
+<!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
+<!-- <script src="js/vendor/core/modernizr.js"></script> -->
+<!-- <script src="js/vendor/core/velocity.js"></script> -->
+<!-- <script src="js/vendor/tables/all.js"></script> -->
+<!-- <script src="js/vendor/forms/all.js"></script> -->
+<!-- <script src="js/vendor/media/slick.js"></script> -->
+<!-- <script src="js/vendor/charts/flot/all.js"></script> -->
+<!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
+<!-- <script src="js/vendor/countdown/all.js"></script> -->
+<!-- <script src="js/vendor/angular/all.js"></script> -->
 
+<!-- App Scripts Bundle
+  Includes Custom Application JavaScript used for the current theme/module;
+  Do not use it simultaneously with the standalone modules below. -->
 <script src="{{asset('js/app/app.js')}}"></script>
 
+<!-- App Scripts Standalone Modules
+  As a convenience, we provide the entire UI framework broke down in separate modules
+  Some of the standalone modules may have not been used with the current theme/module
+  but ALL the modules are 100% compatible -->
 
+<!-- <script src="js/app/essentials.js"></script> -->
+<!-- <script src="js/app/material.js"></script> -->
+<!-- <script src="js/app/layout.js"></script> -->
+<!-- <script src="js/app/sidebar.js"></script> -->
+<!-- <script src="js/app/media.js"></script> -->
+<!-- <script src="js/app/messages.js"></script> -->
+<!-- <script src="js/app/maps.js"></script> -->
+<!-- <script src="js/app/charts.js"></script> -->
+
+<!-- App Scripts CORE [html]:
+      Includes the custom JavaScript for this theme/module;
+      The file has to be loaded in addition to the UI modules above;
+      app.js already includes main.js so this should be loaded
+      ONLY when using the standalone modules; -->
+<!-- <script src="js/app/main.js"></script> -->
 
 </body>
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:19 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-meta.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:27 GMT -->
 </html>
