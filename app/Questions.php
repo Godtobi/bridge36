@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Questions extends Model
 {
+    protected $guarded = [];
+
     public function course()
     {
         return $this->belongsTo(Courses::class, 'course_id');

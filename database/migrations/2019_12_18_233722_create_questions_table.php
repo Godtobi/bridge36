@@ -18,7 +18,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('course_id');
             $table->text('question');
             $table->string('answer');
-            $table->time('time');
+            $table->time('time')->nullable();
             $table->timestamps();
         });
     }
