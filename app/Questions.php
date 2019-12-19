@@ -20,10 +20,7 @@ class Questions extends Model
 
     public function hasUserAnswered($user_id, $question_id)
     {
-        logger("Question ID ". $question_id);
-        logger("User ID ".$user_id);
         if (UserExamination::where("user_id", $user_id)->where("question_id", $question_id)->exists()) {
-            logger("true");
             return true;
         }
         return false;
