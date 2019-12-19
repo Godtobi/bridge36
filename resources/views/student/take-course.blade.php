@@ -46,7 +46,7 @@
             </p>
 
           </div>
-
+            <a href="{{route("start.exam",$course->id)}}"><h5 class="text-subhead-2 text-light">Take Quiz</h5></a>
           <h5 class="text-subhead-2 text-light">Curriculum</h5>
 
           @foreach($container as $paramName => $value)
