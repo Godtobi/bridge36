@@ -170,6 +170,7 @@
       ONLY when using the standalone modules; -->
 <!-- <script src="js/app/main.js"></script> -->
 <script>
+    $('input[type=checkbox]').prop('checked',false);
     $('input[type="checkbox"]').on('change', function () {
         $('input[type="checkbox"]').not(this).prop('checked', false);
         let answer = $("input[type=checkbox]:checked").parent().text().trim();

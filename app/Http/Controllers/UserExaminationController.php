@@ -50,17 +50,17 @@ class UserExaminationController extends Controller
     public function startExam($course_id, Questions $questions)
     {
         //Get Exam Questions for a particular Course.
-        $question = $questions->with("options")->where('course_id', $course_id)->latest()->first();
-        if ($question) {
+        $getAQuestion = $questions->with("options")->where('course_id', $course_id)->latest()->first();
+        if ($getAQuestion) {
             //Shuffle Options
-            $options = $this->shuffleOptions($question);
+            $options = $this->shuffleOptions($getAQuestion);
         } else {
             //TODO: Response for no question.
             return "No Question available for this Course";
         }
-        $questions = $questions->with("options")->where('course_id', $course_id)->get();
+        $allQuestions = $questions->with("options")->where('course_id', $course_id)->get();
 
-        return view('student.take-quiz', compact('question', 'questions', 'options'));
+        return view('student.take-quiz', compact('getAQuestion', 'allQuestions', 'options'));
     }
 
     public function submitAnswers(Request $request, UserExamination $userExamination)
@@ -108,10 +108,12 @@ class UserExaminationController extends Controller
             $an = $usersAnswers->where('question_id', $question->id)->first();
 
             //Checking Correct and Wrong Answers
-            if($an->user_answer === $question->answer){
-                $result['correct_answers'][$an->question_id] = $an->user_answer;
-            }else{
-                $result['wrong_answers'][$an->question_id] = $an->user_answer;
+            if (!empty($an)) {
+                if ($an->user_answer === $question->answer) {
+                    $result['correct_answers'][$an->question_id] = $an->user_answer;
+                } else {
+                    $result['wrong_answers'][$an->question_id] = $an->user_answer;
+                }
             }
         }
         $overAll = count($result['correct_answers']) / count($questions) * 100;
