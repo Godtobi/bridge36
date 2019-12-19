@@ -8,7 +8,7 @@
             <ul class="list-group list-group-menu">
                 <li class="list-group-item active"><a class="link-text-color" href="{{route('dashboard')}}">Dashboard</a></li>
                 <li class="list-group-item"><a class="link-text-color" href="{{route('mycourses')}}">My Courses</a></li>
-                <li class="list-group-item"><a class="link-text-color" href="{{route('profile.update')}}">Profile</a></li>
+                <li class="list-group-item"><a class="link-text-color" href="{{route('profile')}}">Profile</a></li>
                 <li class="list-group-item"><a class="link-text-color" href="{{route('messages')}}">Messages</a></li>
                 <li class="list-group-item"><a class="link-text-color" href="/logout"><span>Logout</span></a></li>
             </ul>
