@@ -174,10 +174,10 @@
 </script>
 
 
-<script src="js/vendor/all.js"></script>
+<script src="{{asset('js/vendor/all.js')}}"></script>
 
 
-<script src="js/app/app.js"></script>
+<script src="{{asset('js/app/app.js')}}"></script>
 
 <!-- App Scripts Standalone Modules
   As a convenience, we provide the entire UI framework broke down in separate modules

@@ -35,20 +35,24 @@ Route::get('/curriculum/{id}', 'CourseController@curriculum')->name('curriculum'
 Route::get('/mymessages/{id}', 'MessageController@getMessages')->name('message.all');
 Route::post('messagesent', 'MessageController@storeMessage')->name('message.store');
 
-Route::get('/mycourses','StudentController@mycourses')->name('mycourses');
-Route::get('/course/{course}/price/{price}','StudentController@subscribe')->name('sub');
-Route::post('/pay','StudentController@pay')->name('pay');
-Route::get('/lesson/material/{id}','CourseController@show_lesson')->name('pdf.html');
+Route::get('/mycourses', 'StudentController@mycourses')->name('mycourses');
+Route::get('/course/{course}/price/{price}', 'StudentController@subscribe')->name('sub');
+Route::post('/pay', 'StudentController@pay')->name('pay');
+Route::get('/lesson/material/{id}', 'CourseController@show_lesson')->name('pdf.html');
 
 /**
  *
  * Admin
  */
 
-Route::get('/all','AdminController@getIndex');
-Route::get('/all','AdminController@getIndex')->name('datatables.data');
+Route::get('/all', 'AdminController@getIndex');
+Route::get('/all', 'AdminController@getIndex')->name('datatables.data');
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
+
+    Route::get('exams/create/{id}', 'ExamController@create')->name('exam-create');
+    Route::get('exams/example', 'ExamController@downloadExample')->name('exam-example');
+    Route::resource('exam', 'ExamController');
 
     Route::post('/admin/assign-role/', 'AdminController@saveTutor')->name('store.tutor');
     Route::get('/admin/assign-role/{id}', 'AdminController@assignTutor')->name('assign.tutor');
@@ -99,7 +103,6 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/admin/store-course', 'CourseController@storeCourse')->name('course.store');
 
 
-
     Route::post('/lesson', 'LessonController@store')->name('lesson.store');
     Route::post('/lessons/update', 'LessonController@update')->name('lesson.update');
     Route::get('/lesson/edit/{id}', 'LessonController@editLesson')->name('edit');
@@ -107,7 +110,18 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/course/{course}/lesson/{lesson}', 'LessonController@lessonVideos')->name('lesson.videos');
     Route::get('/admin/course/{course}/lesson/{lesson}/create', 'LessonController@createVideo')->name('create.videos');
     Route::post('/admin/add-video', 'LessonController@storeVideo')->name('video.store');
+
 });
 
 Route::get('admin/create/user', 'SuperAdminController@create')->name('user.create');
 Route::post('/admin/create', 'SuperAdminController@store')->name('admin_create.store');
+
+//Student Quiz Routes
+Route::group(['prefix' => 'student'], function () {
+    Route::get('question', 'UserExaminationController@index')->name('question.index');
+    Route::get('question/{question_id}/course/{course_id}', 'UserExaminationController@getQuestions')->name('question.take');
+    //Route::get('question/{url}', 'UserExaminationController@takeQuestions')->name('question.take');
+    Route::post('question/submit', 'UserExaminationController@submitAnswers')->name('question.submit');
+    Route::get('start/exam/{course_id}', 'UserExaminationController@startExam')->name('start.exam');
+    Route::get('finish/exam/{course_id}', 'UserExaminationController@finishExam')->name('finish.exam');
+});

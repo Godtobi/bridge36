@@ -103,6 +103,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
               <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
               <li class=""><a href="{{route('assign.tutor',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
               <?php endif; ?>
+              <li><a href="{{route('exam-create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Upload Exam Questions</span></a></li>
               <li class="active"><a href="{{route('module.create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
               <li><a href="{{route('module.show',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
               <li><a href="{{route('course.students',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
