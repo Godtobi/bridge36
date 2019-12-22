@@ -197,7 +197,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                   </div>
 
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Description</label>
+                    <label for="inputEmail3" class="col-md-2 control-label" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique.">Information</label>
                     <div class="col-md-6">
                       <div class="form-control-material">
                         <div class="input-group">

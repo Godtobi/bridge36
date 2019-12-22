@@ -151,6 +151,18 @@
                                     </div>
                                 </div>
 
+                                {{--<div class="form-group">--}}
+                                    {{--<label for="start" class="col-sm-3 control-label">Exam  Date</label>--}}
+                                    {{--<div class="col-sm-9 col-md-4">--}}
+                                        {{--<input id="datepicker"  name="exam_date"  class="form-control datepicker">--}}
+                                    {{--</div>--}}
+                                    {{--<div>--}}
+                                        {{--@error('start')--}}
+                                        {{--<span class="alert text-danger"> <strong>{{ $message }}</strong> </span>--}}
+                                        {{--@enderror--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
                                 <div class="row">
                                     <div class="text-center">
                                        <a href="{{route('exam-example')}}">

@@ -52,7 +52,6 @@ class CourseController extends Controller
             'category'=>'required',
             'duration'=>'required',
             'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'country'=>'required',
             'price'=>''
         ]);
 
@@ -66,6 +65,13 @@ class CourseController extends Controller
             $data['image']=$filePath;
         }
 
+        if (!auth()->user()->hasAnyRole(['admin'])){
+            $data['country']=auth()->user()->country;
+
+        }
+        else{
+            $data['country']=$request->country;
+        }
 
         unset($data['_token']);
 

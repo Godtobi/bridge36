@@ -122,7 +122,7 @@
                                 {{csrf_field()}}
                                 <div class="form-group form-control-material">
 
-                                    <input type="text" name="name" id="title" placeholder="Course Title" class="form-control used" value="" />
+                                    <input type="text" name="name" id="title" maxlength="20" placeholder="Course Title" class="form-control used" value="" />
                                     <div>
                                         @error('name')
                                         <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
@@ -131,9 +131,8 @@
                                     <label for="title">Title</label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Description</label>
-                                    <textarea name="description" id="description" cols="30" rows="10" class="summernote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique. Delectus dicta distinctio quibusdam velit veniam? Aperiam cum dignissimos doloremque officiis
-                      quisquam velit!</textarea>
+                                    <label for="description">Information</label>
+                                    <textarea name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique."></textarea>
                                     <div>
                                         @error('description')
                                         <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>

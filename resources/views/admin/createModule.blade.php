@@ -131,8 +131,8 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     <label for="title">Title</label>
                   </div>
                   <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea name="description" id="description" cols="30" rows="10" class="summernote">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique. Delectus dicta distinctio quibusdam velit veniam? Aperiam cum dignissimos doloremque officiis
+                    <label for="description">Information</label>
+                    <textarea name="description" id="description" cols="30" rows="10" class="summernote" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique.">
                       quisquam velit!</textarea>
                   </div>
                   <input type="hidden" name="course_id" id="title"  class="form-control used" value="{{$id}}" />

@@ -98,16 +98,8 @@
 
                     <!-- Tabs -->
                     <ul class="nav nav-tabs">
-                        <li ><a href="{{route('update.course',$course->id)}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Update Course</span></a></li>
-                        <li class="active"><a href="{{route('update.description',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Update Course Description</span></a></li>
-                        <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
-                        <li class=""><a href="{{route('assign.tutor',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Assign Tutor</span></a></li>
-                        <?php endif; ?>
-                        <li><a href="{{route('exam-create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Upload Exam Questions</span></a></li>
-                        <li class=""><a href="{{route('module.create',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Create Modules</span></a></li>
-                        <li><a href="{{route('module.show',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Manage Modules</span></a></li>
-                        <li><a href="{{route('course.students',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Students</span></a></li>
-                        <li class=""><a href="{{route('course.facilitator',$course->id)}}"><i class="fa fa-fw fa-credit-card"></i> <span class="hidden-sm hidden-xs">Facilitator</span></a></li>
+                        <li ><a href="{{route('exam.index')}}"><i class="fa fa-fw fa-lock"></i> <span class="hidden-sm hidden-xs">Exams</span></a></li>
+
                     </ul>
                     <!-- // END Tabs -->
 
@@ -124,72 +116,48 @@
                             </div>
                         @endif
                         <div id="meta" class="tab-pane active">
-                            <form method="post" action="{{route('update.description.store',$course->id)}}" class="form-horizontal" enctype="multipart/form-data" >
-                                {{csrf_field()}}
-                                <div class="form-group">
-                                    <label for="select" class="col-sm-3 control-label">Category</label>
-                                    <div class="col-sm-9 col-md-9">
-                                        <select name="category" id="select" class="form-control select2">
-                                            <option selected value="{{$course->category}}">{{$course->category}}</option>
-                                            <option value="online">Online</option>
-                                            <option value="class">Class</option>
+                            <table data-toggle="data-table" class="table" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Number of students</th>
+                                    <th>Result</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Number of students</th>
+                                    <th>Result</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                @foreach($questions as $question)
+                                    <tr>
+                                        <td>{{$question->question}}</td>
+                                        <td>f</td>
+                                        <td>f</td>
 
-                                        </select>
-                                    </div>
-                                    <div>
-                                        @error('category')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-3 control-label">Course Image</label>
-                                    <div class="col-md-6">
-                                        <div class="media v-middle">
-                                            <div class="media-left">
-                                                <div class="icon-block width-100 bg-grey-100">
-                                                    <i class="fa fa-photo text-light"></i>
-                                                </div>
-                                            </div>
+                                        <td>  <a title="View" style="color:#001a57;" href="{{route('student.profile',$question->id)}}" ><i class="fa fa-eye"></i></a>
+                                            &nbsp
+                                            &nbsp
+                                            @if(!$student->active)
 
-                                            <div class="media-body">
-                                                <input name="image" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
-                                            </div>
-                                            <div>
-                                                @error('image')
-                                                <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="start" class="col-sm-3 control-label">Start Date</label>
-                                    <div class="col-sm-9 col-md-4">
-                                        <input id="datepicker" value="{{$course->start}}" name="start"  class="form-control datepicker">
-                                    </div>
-                                    <div>
-                                        @error('start')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="end" class="col-sm-3 control-label">End Date</label>
-                                    <div class="col-sm-9 col-md-4">
-                                        <input id="datepicker" value="{{$course->end}}" name="end"  class="form-control datepicker">
-                                        <div>
-                                            @error('end')
-                                            <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary" >Save</button>
+                                                <a title="Enable" href="{{route('student.disable',$question->id)}}" class="btn btn-success paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#">  Enable   </a>
+                                            @endif
+                                            @if($student->active)
+                                                <a title="Disable" href="{{route('student.disable',$question->id)}}" class="btn btn-danger paper-shadow relative" data-z="0" data-hover-z="1" data-animated href="#"> Disable   </a>
+                                            @endif
+                                        </td>
 
-                                </div>
-                            </form>
+                                    </tr>
+                                @endforeach
+
+                                </tbody>
+                            </table>
+                            <!-- // Data table -->
                         </div>
 
                     </div>

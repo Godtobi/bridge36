@@ -13,6 +13,7 @@ class ExamController extends Controller
 {
     protected $studentHelper;
     protected $id;
+    protected $exam_date;
 
     public function __construct(StudentHelper $studentHelper)
     {
@@ -26,7 +27,11 @@ class ExamController extends Controller
      */
     public function index()
     {
-        //
+        $students = $this->studentHelper->adminSelectSix();
+        if(auth()->user()->hasAnyRole(['admin'])){
+            $questions = Questions::all();
+        }
+        return view('exam.show',compact('students','questions'));
     }
 
     /**
@@ -49,17 +54,19 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'file' => 'required|mimes:xls,xlsx',
+            'file' => 'required|mimes:xls,xlsx,csv',
+
             'course_id' => ''
         ]);
         $this->id = $data['course_id'];
         $path = $request->file('file')->getRealPath();
         if (empty($data['course_id'])) {
-            return redirect()->back()->with('error', 'Something went wrong. please try again');
+            return redirect()->route('exam-create')->with('error', 'Something went wrong. please try again');
         }
         try {
             $exam = new Exam();
             $exam->course_id = $data['course_id'];
+
 
             $collection = (new FastExcel)->import($path);
 
@@ -67,6 +74,7 @@ class ExamController extends Controller
                 if (!is_null($entry['Questions']) && !empty($entry['Questions']) && ($entry['Questions']) !== "") {
                     $question = Questions::create(
                         [
+
                             'course_id' => $this->id,
                             'question' => $entry['Questions'],
                             'answer' => $entry['Correct_Answer'],
@@ -81,13 +89,13 @@ class ExamController extends Controller
                             'option_d' => $entry['option_D'],
                         ]);
                     if (!$question && $questionOption) {
-                        return redirect()->back()->with('error', 'error while uploading your data');
+                        return redirect()->route('exam-create')->with('error', 'error while uploading your data');
                     }
                 }
             }
-            return redirect()->back()->with('success', 'your data was uploaded successfully');
+            return redirect()->route('exam-create')->with('success', 'your data was uploaded successfully');
         } catch (\Exception $exception) {
-            return redirect()->back()->with('error', 'Incorrect File Format. Download the file format example below.');
+            return redirect()->route('exam-create')->with('error', 'Incorrect File Format. Download the file format example below.');
         }
     }
 
@@ -138,6 +146,6 @@ class ExamController extends Controller
 
     public function downloadExample()
     {
-        return response()->download(public_path('images/example.xlsx'));
+        return response()->download(public_path('images/example.csv'));
     }
 }

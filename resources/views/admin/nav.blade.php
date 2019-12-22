@@ -25,16 +25,18 @@
                     <ul class="dropdown-menu">
                         <li><a href="{{route('admin.course.edit')}}">Create Course</a></li>
                         <li><a href="{{route('admin.courses')}}">All Courses</a></li>
-                        <li><a href="{{route('admin.courses')}}">Exams and results</a></li>
+                        <li><a href="/exam">Exams and results</a></li>
                         <li><a href="{{route('admin.courses')}}">Course subscription reports</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-users"></i> Users</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu">\    <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
+                        <li><a href="{{route('user.create')}}"> Create User</a></li>
+                        <?php endif; ?>
                         <li><a href="{{route('students')}}"> Students</a></li>
                         <?php if (auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin'])): ?>
-                        <li><a href="{{route('user.create')}}"> Create User</a></li>
+
                         <li><a href="{{route('facilitators')}}">Facilitators</a></li>
                         <?php endif; ?>
                     </ul>

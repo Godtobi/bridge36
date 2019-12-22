@@ -107,21 +107,26 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="select" class="col-sm-3 control-label">Country</label>
-                                    <div class="col-sm-9 col-md-9">
-                                        <select name="country" id="select" class="form-control select2">
-                                            <option value="canada">Canada</option>
-                                            <option value="nigeria">Nigeria</option>
+                                @if(auth()->user()->hasAnyrole(['admin']))
+                                    <div class="form-group">
+                                        <label for="select" class="col-sm-3 control-label">Country</label>
+                                        <div class="col-sm-9 col-md-9">
+                                            <select name="country" id="select" class="form-control select2" required>
+                                                <option value="canada">Canada</option>
+                                                <option value="nigeria">Nigeria</option>
 
-                                        </select>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            @error('country')
+                                            <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                                    <div>
-                                        @error('country')
-                                        <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
-                                        @enderror
-                                    </div>
-                                </div>
+
+                                @endif
+
+
 
                                 <div class="form-group">
                                     <label for="inputEmail3" class="col-sm-3 control-label">Course Image</label>

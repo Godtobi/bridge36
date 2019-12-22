@@ -87,9 +87,9 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="start" class="col-sm-3 control-label">Description</label>
+                    <label for="start" class="col-sm-3 control-label">Information</label>
                     <div class="col-sm-9 col-md-4">
-                      <textarea id="text" name="description" class="form-control"> </textarea>
+                      <textarea id="text" name="description" class="form-control" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae consectetur dignissimos itaque nesciunt nostrum, provident saepe similique."> </textarea>
                       <div>
                         @error('description')
                         <span class="alert text-danger">
