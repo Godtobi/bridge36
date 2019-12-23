@@ -16,6 +16,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^5.8",
         "laravel/tinker": "^1.0",
+        "phpoffice/phpword": "^0.17.0",
         "pusher/pusher-php-server": "^4.0",
         "rap2hpoutre/fast-excel": "^1.5",
         "spatie/laravel-permission": "^3.2",

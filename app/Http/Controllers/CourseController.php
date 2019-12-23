@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Lessons;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Courses;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Session;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use League\Flysystem\Exception;
 use App\Tutors;
 use Gufy\PdfToHtml\Pdf;
+use PhpOffice\PhpWord\IOFactory;
 
 
 class CourseController extends Controller
@@ -115,17 +118,20 @@ class CourseController extends Controller
     {
         $courseName=DB::table('paid_courses')->where('user_id',auth()->user()->id)->where('course_id',$id)->exists();
 
+        if(!$courseName){
+
+        }
+
 
         $course = Courses::findorfail($id);
         $querry = DB::table('lessons')
             ->join('modules', 'modules.id', '=', 'lessons.module_id')
-            ->where(['modules.course_id' => $id])
-            ->select('modules.name as module_name', 'lessons.name as lesson_name', 'modules.description as mod_d','lessons.id as id')
+            ->where('modules.course_id', $id)
+            ->select('modules.name as module_name', 'lessons.name as lesson_name', 'modules.description as mod_d','modules.id as id')
             ->get();
 
+        //dd($querry);
 
-
-        $total = count((array)$querry);
 
 
         $counter=0;
@@ -136,17 +142,21 @@ class CourseController extends Controller
                 array_push($bucket, $item->module_name);
             }
         }
+        $total = count((array)$bucket);
+        //dd($total);
 
         $container=[];
 
         foreach ($bucket as $item){
+            $counter=0;
             while ($counter!=$total){
                 if($item==$querry[$counter]->module_name){
-                    $container[$item][$counter]=$querry[$counter];
+                    $container[$item]=$querry[$counter];
                 }
                 $counter+=1;
             }
         }
+
 
         if(!$courseName){
             return view('student.unpaid-course', compact('course', 'container','tutor'));
@@ -160,6 +170,30 @@ class CourseController extends Controller
             $content=DB::table('lessons')->where('id',$id)->get()[0];
 
             return view('student.lesson-content',compact('content'));
+        }
+
+        public function curriculumLesson($course_id,$module_id){
+            $courseName=DB::table('paid_courses')->where('user_id',auth()->user()->id)->where('course_id',$course_id)->exists();
+            $course = Courses::findorfail($course_id);
+            if(!$courseName){
+                return back()->with('error','Course not found');
+            }
+
+            $lessons = DB::table('lessons')->where('module_id',$module_id)->get();
+
+            return view('student.lesson',compact('lessons','course'));
+
+        }
+
+        public function serveHtml(){
+            $doc = public_path('uploads/2AjpCfrl_1577103077.docx');
+            $phpword= IOFactory::load($doc);
+            $html=IOFactory::createWriter($phpword,'HTML');
+            $name=Str::random(7);
+            $html->save(public_path('uploads/html/'.$name.'.html'));
+
+            return File::get(public_path('uploads/html/'.$name.'.html'));
+
         }
 
 

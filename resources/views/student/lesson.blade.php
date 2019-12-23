@@ -39,6 +39,7 @@
               <div class="media-body">
                 <a class="navbar-btn btn btn-info pull-right" href="{{route("start.exam",$course->id)}}" >Take Quiz </a>
                 <h1 class="text-display-1 margin-none">{{$course->name}}</h1>
+
               </div>
             </div>
             <br/>
@@ -47,10 +48,10 @@
             </p>
 
           </div>
-            {{--<a href="{{route("start.exam",$course->id)}}"><h5 class="text-subhead-2 text-light">Take Quiz</h5></a>--}}
-          <h5 class="text-subhead-2 text-light">Curriculum</h5>
 
-          @foreach($container as $paramName => $value)
+          <h5 class="text-subhead-2 text-light">Lessons</h5>
+
+          @foreach($lessons as $value)
 
             <div class="panel panel-default curriculum paper-shadow" data-z="0.5">
               <div class="panel-heading panel-heading-gray" data-toggle="collapse" data-target="#curriculum-2">
@@ -60,10 +61,10 @@
                       <span class="icon-block half img-circle bg-orange-300 text-white"><i class="fa fa-graduation-cap"></i></span>
                     </div>
                     <div class="media-body">
-                      <a href="/curriculum/lessons/{{$course->id.'/'.$value->id}}">
-                      <h4 class="text-headline">{{$paramName}}</h4>
+                      <a>
+                      <h4 class="text-headline">{{$value->name}}</h4>
                       </a>
-                      <p>{{$value->mod_d}}</p>
+                      {{--<p>{{$value->mod_d}}</p>--}}
                     </div>
                   </div>
                   <span class="collapse-status collapse-open">Open</span>

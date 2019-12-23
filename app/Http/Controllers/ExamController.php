@@ -7,6 +7,8 @@ use App\Helpers\StudentHelper;
 use App\QuestionOptions;
 use App\Questions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Rap2hpoutre\FastExcel\FastExcel;
 
 class ExamController extends Controller
@@ -28,8 +30,15 @@ class ExamController extends Controller
     public function index()
     {
         $students = $this->studentHelper->adminSelectSix();
+        $questions=[];
+        $quest = Questions::all()->unique('course_id');
+        dd($quest);
         if(auth()->user()->hasAnyRole(['admin'])){
-            $questions = Questions::all();
+
+            foreach ($quest as $item){
+
+            }
+
         }
         return view('exam.show',compact('students','questions'));
     }
@@ -54,16 +63,21 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'file' => 'required|mimes:xls,xlsx,csv',
-
+            'file' => 'required',
             'course_id' => ''
         ]);
+//        if (Str::lower($request->file('file')->getClientOriginalExtension())!='csv'){
+//            return redirect()->route('exam-create',$data['course_id'])->with('error', 'Only csv file type is allowed');
+//        }
+
         $this->id = $data['course_id'];
         $path = $request->file('file')->getRealPath();
+
         if (empty($data['course_id'])) {
-            return redirect()->route('exam-create')->with('error', 'Something went wrong. please try again');
+            return redirect()->route('exam-create',$data['course_id'])->with('error', 'Something went wrong. please try again');
         }
         try {
+
             $exam = new Exam();
             $exam->course_id = $data['course_id'];
 
@@ -71,14 +85,16 @@ class ExamController extends Controller
             $collection = (new FastExcel)->import($path);
 
             foreach ($collection as $entry) {
-                if (!is_null($entry['Questions']) && !empty($entry['Questions']) && ($entry['Questions']) !== "") {
+
+                if (!is_null($entry['Questions']) && !empty($entry['Questions']) ) {
                     $question = Questions::create(
                         [
-
                             'course_id' => $this->id,
                             'question' => $entry['Questions'],
                             'answer' => $entry['Correct_Answer'],
                         ]);
+
+
 
                     $questionOption = QuestionOptions::create(
                         [
@@ -87,15 +103,17 @@ class ExamController extends Controller
                             'option_b' => $entry['option_B'],
                             'option_c' => $entry['option_C'],
                             'option_d' => $entry['option_D'],
+                            'course_id'=>$this->id
                         ]);
                     if (!$question && $questionOption) {
-                        return redirect()->route('exam-create')->with('error', 'error while uploading your data');
+                        return redirect()->route('exam-create',$data['course_id'])->with('error', 'error while uploading your data');
                     }
                 }
             }
-            return redirect()->route('exam-create')->with('success', 'your data was uploaded successfully');
+            return redirect()->route('exam-create',$data['course_id'])->with('success', 'your data was uploaded successfully');
         } catch (\Exception $exception) {
-            return redirect()->route('exam-create')->with('error', 'Incorrect File Format. Download the file format example below.');
+
+            return redirect()->route('exam-create',$data['course_id'])->with('error', 'Incorrect File Format. Download the file format example below.');
         }
     }
 
@@ -146,6 +164,6 @@ class ExamController extends Controller
 
     public function downloadExample()
     {
-        return response()->download(public_path('images/example.csv'));
+        return response()->download(public_path('images/example.xlsx'));
     }
 }

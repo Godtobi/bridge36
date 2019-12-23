@@ -143,7 +143,7 @@
                                                 <input name="file" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
                                             </div>
                                             <div>
-                                                @error('image')
+                                                @error('file')
                                                 <span class="alert text-danger"> <strong>{{ $message }}</strong> </span>
                                                 @enderror
                                             </div>

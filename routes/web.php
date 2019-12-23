@@ -34,6 +34,8 @@ Route::get('/user/update-password', 'StudentController@password')->name('updatep
 Route::get('/curriculum/{id}', 'CourseController@curriculum')->name('curriculum');
 Route::get('/mymessages/{id}', 'MessageController@getMessages')->name('message.all');
 Route::post('messagesent', 'MessageController@storeMessage')->name('message.store');
+Route::get('curriculum/lessons/{course_id}/{module_id}', 'CourseController@curriculumLesson')->name('curriculum.lessons');
+Route::get('/lesson/view', 'CourseController@serveHtml')->name('html');
 
 Route::get('/mycourses', 'StudentController@mycourses')->name('mycourses');
 Route::get('/course/{course}/price/{price}', 'StudentController@subscribe')->name('sub');

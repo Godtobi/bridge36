@@ -38,8 +38,8 @@
 
             <!-- Tabs -->
             <ul class="nav nav-tabs">
-              <li class="active" ><a  href="{{route('lesson.show',$module->id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Lessons</span></a></li>
-              <li class=""><a  href="{{route('lesson.form',$module->id)}}"><i class="fa fa-fw fa-plus"></i> <span class="hidden-sm hidden-xs">Add lesson</span></a></li>
+              <li class="active" ><a  href="{{route('lesson.show',3)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Lessons</span></a></li>
+              <li class=""><a  href="{{route('lesson.form',3)}}"><i class="fa fa-fw fa-plus"></i> <span class="hidden-sm hidden-xs">Add lesson</span></a></li>
             </ul>
             <!-- // END Tabs -->
 
@@ -62,7 +62,7 @@
                     </div>
                   @endif
                   <div class="media-right">
-                    <a class="btn btn-primary paper-shadow relative" href="{{route('lesson.form',$module->id)}}">Add lesson</a>
+                    <a class="btn btn-primary paper-shadow relative" href="{{route('lesson.form',3)}}">Add lesson</a>
                   </div>
                 </div>
                 <div class="nestable" id="nestable-handles-primary">
@@ -86,9 +86,9 @@
                             <div class="media-right">
                               <a href="{{route('lesson-edit',$item->id)}}" class="btn btn-white btn-flat"><i class="fa fa-pencil fa-fw"></i> Edit</a>
                             </div>
-                            <div class="media-right">
-                              <a href="{{route('lesson.show',$item->id)}}" class="btn btn-white btn-flat"><i class="fa fa-pencil fa-fw"></i>Lessons</a>
-                            </div>
+                            {{--<div class="media-right">--}}
+                              {{--<a href="{{route('lesson.show',$item->id)}}" class="btn btn-white btn-flat"><i class="fa fa-pencil fa-fw"></i>Lessons</a>--}}
+                            {{--</div>--}}
                           </div>
                         </div>
                       </li>

@@ -7,6 +7,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use App\Courses;
 use Illuminate\Support\Str;
@@ -175,7 +176,8 @@ class AdminController extends Controller
     public function lessonShow($id){
         $students=$this->studentHelper->adminSelectSix();
         $lessons=DB::table('lessons')->where('module_id',$id)->get();
-        $module=DB::table('modules')->where('id',$id)->get()[0];
+        $module=DB::table('modules')->where('id',$id)->first();
+//        dd($module);
         return view('admin.lesson-show',compact('lessons','module','students'));
     }
 
@@ -194,18 +196,28 @@ class AdminController extends Controller
         ]);
 
 
-        if (request()->has('image')) {
 
-            $filename = Str::random(8);
+//        dd($data);
+//
+//        if (request()->has('image')) {
+//
+//            $filename = Str::random(8);
+//            $extension = request()->file('image')->getClientOriginalExtension();
+//            $fileNameToStore= $filename.'_'.time().'.'.$extension;
+//            request()->file('image')->move('uploads', $fileNameToStore);
+//
+//            $data['image']=$fileNameToStore;
+//        }
+        $lesson =new Lessons();
+        if(request()->has('image')){
+            $filename = 'lessons/'.Str::random(8);
             $extension = request()->file('image')->getClientOriginalExtension();
             $fileNameToStore= $filename.'_'.time().'.'.$extension;
-            request()->file('image')->move('uploads', $fileNameToStore);
-
-            $data['image']=$fileNameToStore;
+            Storage::disk('public')->put($fileNameToStore,request()->file);
+            $lesson->image=$fileNameToStore;
         }
 
-        $lesson =new Lessons();
-        $lesson->image=$data['image'];
+
         $lesson->name=$data['name'];
         $lesson->module_id=$data['module_id'];
 
