@@ -32,7 +32,7 @@ class ExamController extends Controller
         $students = $this->studentHelper->adminSelectSix();
         $questions=[];
         $quest = Questions::all()->unique('course_id');
-        dd($quest);
+
         if(auth()->user()->hasAnyRole(['admin'])){
 
             foreach ($quest as $item){
