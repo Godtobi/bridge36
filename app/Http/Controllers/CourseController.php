@@ -157,14 +157,17 @@ class CourseController extends Controller
             }
         }
 
+        if (auth()->user()->hasAnyRole(['admin']) || $courseName){
+
+            return view('student.take-course', compact('course', 'container','tutor'));
+        }
 
         if(!$courseName){
             return view('student.unpaid-course', compact('course', 'container','tutor'));
         }
 
+    }
 
-        return view('student.take-course', compact('course', 'container','tutor'));
-        }
 
         public function show_lesson($id){
             $content=DB::table('lessons')->where('id',$id)->get()[0];
@@ -175,9 +178,9 @@ class CourseController extends Controller
         public function curriculumLesson($course_id,$module_id){
             $courseName=DB::table('paid_courses')->where('user_id',auth()->user()->id)->where('course_id',$course_id)->exists();
             $course = Courses::findorfail($course_id);
-            if(!$courseName){
-                return back()->with('error','Course not found');
-            }
+//            if(!$courseName){
+//                return back()->with('error','Course not found');
+//            }
 
             $lessons = DB::table('lessons')->where('module_id',$module_id)->get();
 
@@ -194,6 +197,12 @@ class CourseController extends Controller
 
             return File::get(public_path('uploads/html/'.$name.'.html'));
 
+        }
+
+        public function renderLesson($id){
+            $lesson = Lessons::find($id);
+            //dd($lesson->image);
+            return view('student.viewLesson',compact('lesson'));
         }
 
 

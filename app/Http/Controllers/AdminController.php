@@ -178,7 +178,7 @@ class AdminController extends Controller
         $lessons=DB::table('lessons')->where('module_id',$id)->get();
         $module=DB::table('modules')->where('id',$id)->first();
 //        dd($module);
-        return view('admin.lesson-show',compact('lessons','module','students'));
+        return view('admin.lesson-show',compact('lessons','module','students','id'));
     }
 
     public function lessonCreate($id){
@@ -191,7 +191,7 @@ class AdminController extends Controller
 
         $data = request()->validate([
             'name'=>'required',
-            'image'=>'',
+            'image'=>'required|mimes:pdf',
             'module_id'=>'',
         ]);
 
@@ -216,6 +216,8 @@ class AdminController extends Controller
             Storage::disk('public')->put($fileNameToStore,request()->file);
             $lesson->image=$fileNameToStore;
         }
+
+
 
 
         $lesson->name=$data['name'];

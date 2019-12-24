@@ -61,7 +61,7 @@
                       <span class="icon-block half img-circle bg-orange-300 text-white"><i class="fa fa-graduation-cap"></i></span>
                     </div>
                     <div class="media-body">
-                      <a>
+                      <a href="{{route('lesson.render',$value->id)}}">
                       <h4 class="text-headline">{{$value->name}}</h4>
                       </a>
                       {{--<p>{{$value->mod_d}}</p>--}}

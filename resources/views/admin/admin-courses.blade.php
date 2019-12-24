@@ -118,7 +118,7 @@
                                 </div>
 
                                 <div class="panel-body">
-                                    <h4 class="text-headline margin-v-0-10"><a href="{{route('update.course',$course->id)}}">{{$course->name}}</a></h4>
+                                    <h4 class="text-headline margin-v-0-10"><a href="{{route('curriculum',$course->id)}}">{{$course->name}}</a></h4>
 
                                 </div>
                                 <hr class="margin-none" />

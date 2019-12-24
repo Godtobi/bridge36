@@ -2,7 +2,7 @@
 <html class="transition-navbar-scroll top-navbar-xlarge bottom-footer" lang="en">
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-take-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:12 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
   <meta charset="utf-8">
@@ -16,15 +16,13 @@
     Includes styling for all of the 3rd party libraries used with this module, such as Bootstrap, Font Awesome and others.
     TIP: Using bundles will improve performance by reducing the number of network requests the client needs to make when loading the page. -->
   <link href="{{asset('css/vendor/all.css')}}" rel="stylesheet">
-
-  <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
-
+    <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
 </head>
 
 <body>
 
   <!-- Fixed navbar -->
-  @include('admin.nav')
+@include('student.nav')
 
   <div class="container">
 
@@ -33,84 +31,86 @@
 
         <div class="col-md-9">
 
-          <!-- Tabbable Widget -->
-          <div class="tabbable paper-shadow relative" data-z="0.5">
+          <div class="page-section padding-top-none">
+            <div class="media media-grid v-middle">
+              <div class="media-left">
+                <span class="icon-block half bg-blue-300 text-white">2</span>
+              </div>
+              <div class="media-body">
+                {{--<a class="navbar-btn btn btn-info pull-right" href="{{route("start.exam",$course->id)}}" >Take Quiz </a>--}}
+                <h1 class="text-display-1 margin-none">{{$lesson->name}}</h1>
 
-            <!-- Tabs -->
-            <ul class="nav nav-tabs">
-              <li class="active" ><a  href="{{route('lesson.show',$id)}}"><i class="fa fa-fw fa-book"></i> <span class="hidden-sm hidden-xs">Lessons</span></a></li>
-              <li class=""><a  href="{{route('lesson.form',$id)}}"><i class="fa fa-fw fa-plus"></i> <span class="hidden-sm hidden-xs">Add lesson</span></a></li>
-            </ul>
-            <!-- // END Tabs -->
+              </div>
+            </div>
+            <br/>
+            {{--<p class="text-body-2">--}}
+              {{--{{$course->description}}--}}
+            {{--</p>--}}
+            {{--<h5 class="text-subhead-2 text-light">Lessons</h5>--}}
 
-            <!-- Panes -->
-            <div class="tab-content">
-
-              <div id="lessons" class="tab-pane active">
-                <div class="media v-middle s-container">
-                  <div class="media-body">
-
-                  </div>
-                  @if (session('success'))
-                    <div class=" text-center alert alert-success">
-                      {!!  session('success') !!}
-                    </div>
-                  @endif
-                  @if (session('error'))
-                    <div class="text-center alert alert-warning">
-                      {{ session('error') }}
-                    </div>
-                  @endif
-                  <div class="media-right">
-                    <a class="btn btn-primary paper-shadow relative" href="{{route('lesson.form',$id)}}">Add lesson</a>
-                  </div>
-                </div>
-                <div class="nestable" id="nestable-handles-primary">
-                  <ul class="nestable-list">
-                    @foreach($lessons as $item)
-                      <li class="nestable-item nestable-item-handle" data-id="1">
-                        <div class="nestable-handle"><i class="md md-menu"></i></div>
-                        <div class="nestable-content">
-                          <div class="media v-middle">
-                            <div class="media-left">
-                              <div class="icon-block half bg-red-400 text-white">
-                                <i class="fa fa-github"></i>
-                              </div>
-                            </div>
-                            <div class="media-body">
-                              <h4 class="text-title media-heading margin-none">
-                                <a href="#" class="link-text-color">{{$item->name}}</a>
-                              </h4>
-
-                            </div>
-                            <div class="media-right">
-                              <a href="{{route('lesson-edit',$item->id)}}" class="btn btn-white btn-flat"><i class="fa fa-pencil fa-fw"></i> Edit</a>
-                            </div>
-                            {{--<div class="media-right">--}}
-                              {{--<a href="{{route('lesson.show',$item->id)}}" class="btn btn-white btn-flat"><i class="fa fa-pencil fa-fw"></i>Lessons</a>--}}
-                            {{--</div>--}}
-                          </div>
-                        </div>
-                      </li>
-
-                    @endforeach
+            <iframe src="{{\Illuminate\Support\Facades\Storage::disk('public')->get($lesson->image)}}" style="width: 800px; height: 600px;"></iframe>
+          </div>
 
 
-                  </ul>
-                </div>
+
+
+
+
+
+
+              <div class="list-group collapse" id="curriculum-2">
+                {{--@php--}}
+
+                       {{--$length = count((array)$value);--}}
+                        {{--@endphp--}}
+                {{--@while($length!=0)--}}
+
+                  {{--<a href="{{route('pdf.html',$value->id)}}">--}}
+                    {{--<div class="list-group-item media" data-target="website-take-course.html">--}}
+                      {{--<div class="media-left">--}}
+                        {{--<div class="text-crt">1.</div>--}}
+                      {{--</div>--}}
+                      {{--<div class="media-body">--}}
+                        {{--<i  class="fa fa-fw fa-circle text-grey-200"> {{$value->lesson_name}} </i>--}}
+                      {{--</div>--}}
+                      {{--<div class="media-right">--}}
+                        {{--<div class="width-100 text-right text-caption"></div>--}}
+                      {{--</div>--}}
+                    {{--</div>--}}
+                  {{--</a>--}}
+                {{--@php--}}
+                {{--$length-=1;--}}
+                        {{--@endphp--}}
+                {{--@endwhile--}}
+              {{--@foreach($value as $item)--}}
+                  {{--<a href="{{route('pdf.html',$value->id)}}">--}}
+                  {{--<div class="list-group-item media" data-target="website-take-course.html">--}}
+                    {{--<div class="media-left">--}}
+                      {{--<div class="text-crt">1.</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="media-body">--}}
+                      {{--<i  class="fa fa-fw fa-circle text-grey-200"> {{$value->lesson_name}} </i>--}}
+                    {{--</div>--}}
+                    {{--<div class="media-right">--}}
+                      {{--<div class="width-100 text-right text-caption"></div>--}}
+                    {{--</div>--}}
+                  {{--</div>--}}
+                  {{--</a>--}}
+                {{--@endforeach--}}
               </div>
 
-            </div>
-            <!-- // END Panes -->
 
-          </div>
-          <!-- // END Tabbable Widget -->
+
+
 
           <br/>
           <br/>
 
         </div>
-   @include('admin.right-pane')
+@include('student.right-pane')
+
+
+
 
       </div>
     </div>
@@ -210,5 +210,5 @@
 </body>
 
 
-<!-- Mirrored from learning.frontendmatter.com/html/website-instructor-course-edit-lessons.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:30 GMT -->
+<!-- Mirrored from learning.frontendmatter.com/html/website-take-course.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 21 Oct 2019 15:06:14 GMT -->
 </html>
