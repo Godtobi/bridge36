@@ -8,13 +8,13 @@ return [
     ],
     'broadcast' => [
         'enable' => false,
-        'app_name' => 'your-app-name',
+        'app_name' => 'Laravel',
         'pusher' => [
-            'app_id' => '',
-            'app_key' => '',
-            'app_secret' => '',
+            'app_id' => '888249',
+            'app_key' => 'fd5641148c2e34c760d4',
+            'app_secret' => 'abd8a4179e00ed357375',
             'options' => [
-                'cluster' => 'ap1',
+                'cluster' => 'eu',
                 'encrypted' => true
             ]
         ],

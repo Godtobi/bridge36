@@ -9,6 +9,7 @@ use App\Messages;
 use Pusher\Pusher;
 use App\Events\Messenger;
 use App\Helpers\StudentHelper;
+
 class MessageController extends Controller
 
 {
