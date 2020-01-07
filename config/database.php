@@ -1,6 +1,6 @@
 <?php
 
-//use Illuminate\Support\Str;
+use Illuminate\Support\Str;
 //
 //$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
 //$host = $url["host"];
