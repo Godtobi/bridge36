@@ -76,6 +76,9 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/course/{id}/students', 'StudentController@courseStudent')->name('course.students');
     Route::get('/course/{id}/facilitator', 'TutorController@viewFacilitator')->name('course.facilitator');
 
+    Route::get('/admin/password/update', 'AdminController@updatePassword')->name('update.pass');
+    Route::post('/admin/password/store', 'AdminController@storePassword')->name('pass.store');
+
 
     Route::get('/admin/create-module/{id}', 'AdminController@moduleCreate')->name('module.create');
     Route::post('/module/', 'AdminController@moduleStore')->name('module.store');
