@@ -84,6 +84,6 @@
 
 @endif
 
-@if(auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin']))
+@if(auth()->user()->hasAnyRole(['admin','canada_admin','nigeria_admin','facilitator']))
 @include('admin.nav')
 @endif
