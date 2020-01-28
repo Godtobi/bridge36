@@ -9,6 +9,11 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 class SuperAdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
   public function create(){
       return view ('admin.create_user');
   }

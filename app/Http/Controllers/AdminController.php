@@ -6,6 +6,7 @@ use App\Helpers\FacilitatorsHelper;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
@@ -324,6 +325,32 @@ class AdminController extends Controller
     public function adminProfile(){
         $user=User::findorfail(auth()->user()->id);
         return view('admin.admin-profile',compact('user'));
+    }
+
+    public function updatePassword(){
+
+        return view('admin.update_password');
+    }
+
+    public function storePassword(Request $request){
+        $data = $request->validate([
+           'current_password'=>'required',
+            'new_password'=>'required',
+            'confirm_password'=>'required'
+        ]);
+
+        if(!Hash::check($data['current_password'],auth()->user()->password)){
+            return back()->with('error','Invalid Password.');
+        }
+
+        if($data['new_password']!=$data['confirm_password']){
+            return back()->with('error','Passwords does not match.');
+        }
+
+        $user = User::find(auth()->user()->id);
+        $user->password=Hash::make($data['current_password']);
+        $user->save();
+        return back()->with('success','Passwords Successfully Changed.');
     }
 
     public function adminProfileUpdate(){

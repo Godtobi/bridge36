@@ -76,9 +76,9 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
 
             <!-- Tabs -->
             <ul class="nav nav-tabs">
-              <li class="active"><a href="{{route('admins_profile')}}"><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
+              <li class=""><a href="{{route('admins_profile')}}"><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Profile</span></a></li>
 
-              <li class=""><a href="{{route('update.pass')}}"><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Update Password</span></a></li>
+              <li class="active"><a href="{{route('update.pass')}}"><i class="fa fa-fw fa-user"></i> <span class="hidden-sm hidden-xs">Update Password</span></a></li>
             </ul>
             <!-- // END Tabs -->
 
@@ -96,96 +96,18 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                     {{ session('error') }}
                   </div>
                 @endif
-                <form method="post" action="{{route('admins_profile_update')}}" enctype="multipart/form-data"  class="form-horizontal">
+                <form method="post" action="{{route('pass.store')}}"   class="form-horizontal">
                   @csrf
+
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">Avatar</label>
-                    <div class="col-md-6">
-                      <div class="media v-middle">
-                        <div class="media-left">
-                          <div class="icon-block width-100 bg-grey-100">
-                            <img src="{{asset('/storage'.$user->image)}}">
-                          </div>
-                        </div>
-
-
-                        <div>
-                          @error('image')
-                          <span class="alert text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                          @enderror
-                        </div>
-                      </div>
-                      <div class="media-body">
-                        <input name="image" data-z="0.5" data-hover-z="1" placeholder="Add Image" class="form-control btn btn-white btn-sm paper-shadow relative" type="file">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Full Name</label>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-control-material">
-                            <input type="text" value="{{$user->firstname}}"   name="firstname" class="form-control" id="exampleInputFirstName" placeholder="Your first name">
-
-                      <div>
-                        @error('firstname')
-                        <span class="alert text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
-                      </div>
-
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-control-material">
-                            <input type="text" value="{{$user->lastname}}"   name="lastname" class="form-control" id="exampleInputLastName" placeholder="Your last name">
-                        <div>
-                          @error('lastname')
-                          <span class="alert text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                          @enderror
-                        </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                  <?php if (auth()->user()->hasAnyRole(['canada_admin','nigeria_admin','facilitator'])): ?>
-                  <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Email address</label>
-                    <div class="col-md-6">
-                      <div class="form-control-material">
-                        <div class="input-group">
-                          <!-- <span class="input-group-addon"><i class="fa fa-envelope"></i></span> -->
-                          <input type="email" value="{{$user->email}}"  class="form-control" id="inputEmail3" placeholder="Email address">
-                     <div>
-                       @error('email')
-                       <span class="alert text-danger">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                       @enderror
-                     </div>
-                          <!-- <label for="inputEmail3">Email address</label> -->
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <?php endif; ?>
-                  <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Phone Number</label>
+                    <label for="inputEmail3" class="col-md-2 control-label">Current Password</label>
                     <div class="col-md-6">
                       <div class="form-control-material">
                         <div class="input-group">
                           <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
-                          <input type="number" value="{{$user->phone}}" name="phone" class="form-control used" id="phone">
+                          <input type="password"  name="current_password" class="form-control used" id="phone">
                           <div>
-                            @error('phone')
+                            @error('current_password')
                             <span class="alert text-danger">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -195,15 +117,16 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       </div>
                     </div>
                   </div>
+
                   <div class="form-group">
-                    <label for="inputEmail3" class="col-md-2 control-label">Country</label>
+                    <label for="inputEmail3" class="col-md-2 control-label">New Password</label>
                     <div class="col-md-6">
                       <div class="form-control-material">
                         <div class="input-group">
                           <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
-                          <input type="number" readonly="readonly" value="{{$user->country}}"  name="country" class="form-control used" id="phone">
+                          <input type="password" name="new_password" class="form-control used" id="phone">
                           <div>
-                            @error('phone')
+                            @error('new_password')
                             <span class="alert text-danger">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -213,22 +136,29 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
                       </div>
                     </div>
                   </div>
-                  <!-- <div class="form-group">
-                    <label for="inputPassword3" class="col-md-2 control-label">Change Password</label>
+
+                  <div class="form-group">
+                    <label for="inputEmail3" class="col-md-2 control-label">Confirm Password</label>
                     <div class="col-md-6">
                       <div class="form-control-material">
-                        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                        <label for="inputPassword3">Password</label>
-                      </div>
-                    </div>
-                  </div> -->
-                  <div class="form-group">
-                    <div class="col-md-offset-2 col-md-6">
-                      <div class="checkbox checkbox-success">
-                        <input id="checkbox3" type="checkbox" checked="">
+                        <div class="input-group">
+                          <!-- <span class="input-group-addon"><i class="fa fa-link"></i></span> -->
+                          <input type="password" name="confirm_password" class="form-control used" id="phone">
+                          <div>
+                            @error('confirm_password')
+                            <span class="alert text-danger">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                            @enderror
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
+
+
+
+
                   <div class="text-center">
                     <button type="submit" class="btn btn-primary" >Update</button>
                     <button type="button" class="btn btn-danger" >Cancel</button>
