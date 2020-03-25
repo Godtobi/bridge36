@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
 
     public function run()
     {
+        $this->call(RoleTableSeeder::class);
+
         $adminUser = User::create( [
             'firstname' => 'admin',
             'lastname' => 'Mojo Blanco',
