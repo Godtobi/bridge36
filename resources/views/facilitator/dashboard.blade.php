@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>56Bridge</title>
-    <link href="{{asset('css/vendor/all.css')}}" rel="stylesheet">
-    <link href="{{asset('css/app/app.css')}}" rel="stylesheet">
+    <link href="{{secure_asset('css/vendor/all.css')}}" rel="stylesheet">
+    <link href="{{secure_asset('css/app/app.css')}}" rel="stylesheet">
 </head>
 
 <body>
